@@ -10,3 +10,6 @@ class Stock:
 
     def show_stock(self):
         pass
+
+    def place_order(self):
+        pass

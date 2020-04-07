@@ -10,6 +10,3 @@ class Order:
 
     def show_orders(self):
         pass
-
-    def order_product(self):
-        pass

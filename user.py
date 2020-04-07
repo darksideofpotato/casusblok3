@@ -10,6 +10,10 @@ class User:
     def order_product(self):
         pass
 
+    #method om een bedrijf toe te voegen
+    def add_company(self):
+        pass
+
     #method om een user te deleten
     def delete_user(self):
         pass

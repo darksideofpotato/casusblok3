@@ -23,7 +23,7 @@ class Program:
                 "Kies 'lo' om uit te loggen \n"
                 "Kies 'e' om af te sluiten\n"
             )
-            choice = input()
+            choice = input().lower()
 
             if choice == 'u':
                 print(

@@ -44,8 +44,9 @@ class Program:
                     elif new_user_role == 'e':
                         new_user_role = 'employee'
 
-                    print(new_user_username, new_user_role)
                     self.dal.add_user(new_user_username,new_user_role)
+
+                    print("\nDe nieuwe user " + new_user_username + " is toegevoegd!")
                     pass
                 elif choice == 'd':
                     pass
@@ -118,21 +119,6 @@ class Program:
                 Program()
             if choice == 'e':
                 exit()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 Program()

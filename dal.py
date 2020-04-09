@@ -33,13 +33,14 @@ class Dal:
         #     print("Error while connecting to MySQL", e)
 
     ## Het sluiten van een databaseconnectie als die open staat
-    def database_disconnect(self):
+    def database_disconnect(self, connection):
         if connection.is_connected():
             connection.close()
             print("Database is closed")
 
 ############################################ einde methods voor de databaseconnectie
 
+##### User methods
     def login_user(self, username):
         connection = self.database_connect()
 
@@ -50,16 +51,14 @@ class Dal:
         cursor.execute(sql, data)
         result = cursor.fetchall()
 
-        for x in result:
-            print(x)
-
-        if result.count != 0:
+        if data in result:
             print("Welkom, " + username.title())
+            self.database_disconnect(connection)
+            return True
         else:
-            print("Deze user bestaat niet")
-        #     user = User(username, "")
-        #     # self.user_dict[username] = user
-        #     # self.save_dict("user", self.user_dict)
-        #     print("Welkom, " + username.title() + " , er is een account voor je aangemaakt!")
-        # return user
-        pass
+            print("Deze user bestaat niet, of je hebt een typfout gemaakt. Probeer het nog een keer.")
+            self.database_disconnect(connection)
+            return False
+
+
+

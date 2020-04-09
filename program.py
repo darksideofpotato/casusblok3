@@ -37,6 +37,15 @@ class Program:
                 if choice == 'i':
                     self.user_object.get_info()
                 elif choice == 'a':
+                    new_user_username = input ("Wat wordt de username van de nieuwe user?")
+                    new_user_role = input("Is het een admin(a) of employee(e)?")
+                    if new_user_role == 'a':
+                        new_user_role = 'admin'
+                    elif new_user_role == 'e':
+                        new_user_role = 'employee'
+
+                    print(new_user_username, new_user_role)
+                    self.dal.add_user(new_user_username,new_user_role)
                     pass
                 elif choice == 'd':
                     pass

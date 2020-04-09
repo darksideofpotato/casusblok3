@@ -63,5 +63,13 @@ class Dal:
             self.database_disconnect(connection)
             return False
 
+    def add_user(self, username, role):
+        connection = self.database_connect()
 
+        # sql = "INSERT INTO gebruiker (gebruikersnaam, rol) VALUES (%s, %s)"
+        sql = "INSERT INTO gebruiker (gebruikersnaam, rol) VALUES (%s, %s)"
+        values = (username, role)
+        cursor = connection.cursor()
+        cursor.execute(sql, values)
+        connection.commit()
 

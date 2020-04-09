@@ -22,8 +22,8 @@ class Program:
                 "Kies 'l' om naar de opties voor leveranciers te gaan\n"
                 "Kies 'o' om naar de opties van orders te gaan\n"
                 "Kies 'p' om naar de opties voor producten te gaan\n"
-            # "Kies 'lo' om uit te loggen \n"
-            # "Kies 'exit' om af te sluiten\n"
+                "Kies 'lo' om uit te loggen \n"
+                "Kies 'e' om af te sluiten\n"
             )
             choice = input()
 
@@ -52,6 +52,10 @@ class Program:
                 # "Kies 'lo' om uit te loggen \n"
                 # "Kies 'exit' om af te sluiten\n"
                 pass
+            if choice == 'lo':
+                Program()
+            if choice == 'e':
+                exit()
 
 
 

@@ -1,15 +1,13 @@
 from dal import Dal
 
+
 class Program:
     def __init__(self):
         self.dal = Dal()
 
-        flag = True
-        while flag:
-            self.username = input("Wat is je gebruikersnaam?")
+        self.username = input("Wat is je gebruikersnaam?")
 
-            if self.dal.login_user(self.username) == True:
-                flag = False
+        self.user_object = self.dal.login_user(self.username)
 
         self.menu()
 
@@ -36,8 +34,18 @@ class Program:
                     "Kies 'e' om af te sluiten\n"
                 )
                 choice = input()
+                if choice == 'i':
+                    self.user_object.get_info()
+                elif choice == 'a':
+                    pass
+                elif choice == 'd':
+                    pass
+                elif choice == 'm':
+                    self.menu()
+                elif choice == 'e':
+                    exit()
                 pass
-            if choice == 'l':
+            elif choice == 'l':
                 print(
                     "Kies 'a' om een leverancier toe te voegen\n"
                     "Kies 'd' om een leverancier te verwijderen\n"
@@ -46,6 +54,16 @@ class Program:
                     "Kies 'e' om af te sluiten\n"
                 )
                 choice = input()
+                if choice == 'a':
+                    pass
+                elif choice == 'd':
+                    pass
+                elif choice == 'p':
+                    pass
+                elif choice == 'm':
+                    self.menu()
+                elif choice == 'e':
+                    exit()
                 pass
             if choice == 'o':
                 print(
@@ -56,6 +74,16 @@ class Program:
                     "Kies 'e' om af te sluiten\n"
                 )
                 choice = input()
+                if choice == 'a':
+                    pass
+                elif choice == 'b':
+                    pass
+                elif choice == 'p':
+                    pass
+                elif choice == 'm':
+                    self.menu()
+                elif choice == 'e':
+                    exit()
                 pass
             if choice == 'p':
                 print(
@@ -66,6 +94,16 @@ class Program:
                     "Kies 'e' om af te sluiten\n"
                 )
                 choice = input()
+                if choice == 'a':
+                    pass
+                elif choice == 't':
+                    pass
+                elif choice == 'd':
+                    pass
+                elif choice == 'm':
+                    self.menu()
+                elif choice == 'e':
+                    exit()
                 pass
             if choice == 'lo':
                 Program()

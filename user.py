@@ -5,7 +5,8 @@ class User:
 
 ##### methods
 
-
+    def get_info(self):
+        print(self.username, self.rol)
     #method om een product te bestellen
     def order_product(self):
         pass

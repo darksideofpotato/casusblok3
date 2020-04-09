@@ -44,17 +44,20 @@ class Dal:
     def login_user(self, username):
         connection = self.database_connect()
 
-        sql = "SELECT gebruikersnaam FROM gebruiker where gebruikersnaam like (%s)"
+        sql = "SELECT * FROM gebruiker where gebruikersnaam like (%s)"
 
         data = (username,)
         cursor = connection.cursor()
         cursor.execute(sql, data)
         result = cursor.fetchall()
 
-        if data in result:
+        if result != []:
+
             print("Welkom, " + username.title())
             self.database_disconnect(connection)
-            return True
+            user = User(result[0][1], result[0][2])
+            return user
+
         else:
             print("Deze user bestaat niet, of je hebt een typfout gemaakt. Probeer het nog een keer.")
             self.database_disconnect(connection)

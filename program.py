@@ -28,29 +28,44 @@ class Program:
             choice = input()
 
             if choice == 'u':
-                # "Kies 'u' om je gebruikersinfo te bekijken.\n"
-                # "Kies 'au' om een user toe te voegen\n"
-                # "Kies 'du' om een user te verwijderen\n"
-                # "Kies 'lo' om uit te loggen \n"
-                # "Kies 'exit' om af te sluiten\n"
+                print(
+                    "Kies 'i' om je gebruikersinfo te bekijken.\n"
+                    "Kies 'a' om een user toe te voegen\n"
+                    "Kies 'd' om een user te verwijderen\n"
+                    "Kies 'm' om terug naar het menu te gaan \n"
+                    "Kies 'e' om af te sluiten\n"
+                )
+                choice = input()
                 pass
             if choice == 'l':
-                # "Kies 'ac' om een leverancier toe te voegen\n"
-                # "Kies 'dc' om een leverancier te verwijderen\n"
-                # "Kies 'lo' om uit te loggen \n"
-                # "Kies 'exit' om af te sluiten\n"
+                print(
+                    "Kies 'a' om een leverancier toe te voegen\n"
+                    "Kies 'd' om een leverancier te verwijderen\n"
+                    "Kies 'p' om een leverancier aan te passen\n"
+                    "Kies 'm' om terug naar het menu te gaan \n"
+                    "Kies 'e' om af te sluiten\n"
+                )
+                choice = input()
                 pass
             if choice == 'o':
-                # "Kies 'oa' om een order aan te passen\n"
-                # "Kies 'po' om de pending orders te bekijken\n"
-                # "Kies 'op' om een order te plaatsen\n"
-                # "Kies 'lo' om uit te loggen \n"
-                # "Kies 'exit' om af te sluiten\n"
+                print(
+                    "Kies 'a' om een order aan te passen\n"
+                    "Kies 'b' om de pending orders te bekijken\n"
+                    "Kies 'p' om een order te plaatsen\n"
+                    "Kies 'm' om terug naar het menu te gaan \n"
+                    "Kies 'e' om af te sluiten\n"
+                )
+                choice = input()
                 pass
             if choice == 'p':
-                # "Kies 'pa' om een product aan te passen\n"
-                # "Kies 'lo' om uit te loggen \n"
-                # "Kies 'exit' om af te sluiten\n"
+                print(
+                    "Kies 'a' om een product aan te passen\n"
+                    "Kies 't' om een product toe te voegen\n"
+                    "Kies 'd' om een product te verwijderen\n"
+                    "Kies 'm' om terug naar het menu te gaan \n"
+                    "Kies 'e' om af te sluiten\n"
+                )
+                choice = input()
                 pass
             if choice == 'lo':
                 Program()

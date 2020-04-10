@@ -6,7 +6,7 @@ global connection
 
 class Dal:
 
-############################################ methods voor de databaseconnectie
+#region Database
     ## Het openen van een databaseconnectie
     @staticmethod
     def database_connect():
@@ -37,11 +37,11 @@ class Dal:
         if connection.is_connected():
             connection.close()
             print("Database is closed")
+#endregion
 
-############################################ einde methods voor de databaseconnectie
+#region User methods
 
-##### User methods
-    ## Login
+
     def login_user(self, username):
         connection = self.database_connect()
 
@@ -56,7 +56,7 @@ class Dal:
 
             print("Welkom, " + username.title())
             self.database_disconnect(connection)
-            user = User(result[0][1], result[0][2])
+            user = User(result[0][0], result[0][1], result[0][2])
             return user
 
         else:
@@ -64,7 +64,7 @@ class Dal:
             self.database_disconnect(connection)
             return False
 
-    ## User toevoegen
+
     def add_user(self, username, role):
         connection = self.database_connect()
 
@@ -74,7 +74,7 @@ class Dal:
         cursor.execute(sql, values)
         connection.commit()
 
-    ## User lijst ophalen
+
     def select_a_user(self, goal):
         connection = self.database_connect()
 
@@ -98,7 +98,7 @@ class Dal:
             print("niet gelukt")
             pass
 
-    ## User verwijderen
+
     def delete_user(self, chosen_user_username):
         connection = self.database_connect()
 
@@ -109,7 +109,7 @@ class Dal:
         connection.commit()
         print(cursor.rowcount, "record(s) deleted")
 
-    ## User gegevens aanpassen
+
     def modify_user(self, chosen_user, new_username, new_role):
         connection = self.database_connect()
 
@@ -121,7 +121,20 @@ class Dal:
 
         print(cursor.rowcount, "record(s) affected")
 
+#endregion
 
+#region Company methods
+    def add_company(self, naam, adres, email, levertijd):
+        connection = self.database_connect()
+
+        sql = "INSERT INTO leverancier (leveranciernaam, leverancieradres, leverancieremail, levertijd) VALUES (%s, %s, %s, %s)"
+        values = (naam, adres, email, levertijd)
+        cursor = connection.cursor()
+        cursor.execute(sql, values)
+        connection.commit()
+
+
+#endregion
 
 
 

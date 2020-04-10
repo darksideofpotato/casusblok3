@@ -1,5 +1,6 @@
 class User:
-    def __init__(self, username, rol):
+    def __init__(self, id, username, rol):
+        self.userid = id
         self.username = username
         self.rol = rol
 

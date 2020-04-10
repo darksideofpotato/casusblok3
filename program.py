@@ -99,17 +99,28 @@ class Program:
                     "Kies 'a' om een leverancier toe te voegen\n"
                     "Kies 'd' om een leverancier te verwijderen\n"
                     "Kies 'p' om een leverancier aan te passen\n"
+                    "Kies 'all voor een volledige lijst van leveranciers\n"
                     "Kies 'm' om terug naar het menu te gaan \n"
                     "Kies 'e' om af te sluiten\n"
                 )
                 choice = input()
                 if choice == 'a':
-                    # TODO: maken
+                    new_company_name = input("Wat is de naam van de leverancier?")
+                    new_company_adres = input("Wat is het adres van de leverancier?")
+                    new_company_email = input("Wat is het emailadres van de leverancier?")
+                    new_company_levertijd = input("Wat is de levertijd van de leverancier?")
+
+                    self.dal.add_company(new_company_name, new_company_adres, new_company_email, new_company_levertijd)
+
+                    print("\nDe nieuwe leverancier " + new_company_name + " is toegevoegd!")
                     pass
                 elif choice == 'd':
                     # TODO: maken
                     pass
                 elif choice == 'p':
+                    # TODO: maken
+                    pass
+                elif choice == 'all':
                     # TODO: maken
                     pass
                 elif choice == 'm':

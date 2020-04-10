@@ -121,7 +121,7 @@ class Program:
                     # TODO: maken
                     pass
                 elif choice == 'all':
-                    # TODO: maken
+                    self.dal.select_a_company('show')
                     pass
                 elif choice == 'm':
                     self.menu()

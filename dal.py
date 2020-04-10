@@ -133,6 +133,28 @@ class Dal:
         cursor.execute(sql, values)
         connection.commit()
 
+    def select_a_company(self, goal):
+        connection = self.database_connect()
+
+        sql = "SELECT leveranciernaam, leverancieradres, leverancieremail, levertijd FROM leverancier"
+        cursor = connection.cursor()
+        cursor.execute(sql)
+        result = cursor.fetchall()
+
+        print("De volgende leveranciers zitten in het systeem:")
+        counter = 0
+        for company in result:
+            counter = counter + 1
+            print(str(counter) + ". " + str(company))
+
+        if goal == "action":
+            chosen_company = int(input("Welke leverancier kies je? (nummer)"))
+            chosen_company = - 1
+
+            return (result[chosen_company][0])
+        else:
+            print("niet gelukt")
+            pass
 
 #endregion
 

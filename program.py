@@ -28,14 +28,20 @@ class Program:
             if choice == 'u':
                 print(
                     "Kies 'i' om je gebruikersinfo te bekijken.\n"
+                    "Kies 'all' om een lijst van alle users te zien\n"
                     "Kies 'a' om een user toe te voegen\n"
                     "Kies 'd' om een user te verwijderen\n"
+                    "Kies 'c' om een user aan te passen\n"
                     "Kies 'm' om terug naar het menu te gaan \n"
                     "Kies 'e' om af te sluiten\n"
                 )
                 choice = input()
                 if choice == 'i':
                     self.user_object.get_info()
+
+                ## lijst van alle users kunnen bekijken
+                elif choice == 'all':
+                    self.dal.select_a_user('view')
 
                 ## Het aamaken van een nieuwe gebruiker
                 elif choice == 'a':
@@ -50,13 +56,29 @@ class Program:
 
                     print("\nDe nieuwe user " + new_user_username + " is toegevoegd!")
                     pass
+
                 ## Het verwijderen van een user
                 elif choice == 'd':
-                    selected_to_delete = self.dal.select_a_user()
+                    selected_to_delete = self.dal.select_a_user('action')
+                    confirm_delete = input("Je hebt gekozen om " + selected_to_delete + " te verwijderen. Weet je dit zeker? (y/n)")
+                    if confirm_delete == "y":
+                        self.dal.delete_user(selected_to_delete)
+                    else:
+                        pass
+                    pass
 
-                    print(selected_to_delete)
-                    self.dal.delete_user(selected_to_delete)
+                ## Het kiezen en aanpassen van een user
+                elif choice == 'c':
+                    selected_to_change = self.dal.select_a_user('action')
 
+                    new_user_username = input("Wat wordt de nieuwe username?")
+                    new_user_role = input("Is het een admin(a) of employee(e)?")
+                    if new_user_role == 'a':
+                        new_user_role = 'admin'
+                    elif new_user_role == 'e':
+                        new_user_role = 'employee'
+
+                    self.dal.modify_user(selected_to_change, new_user_username, new_user_role)
 
                     pass
                 elif choice == 'm':

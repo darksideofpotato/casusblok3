@@ -75,7 +75,7 @@ class Dal:
         connection.commit()
 
     ## User lijst ophalen
-    def select_a_user(self):
+    def select_a_user(self, goal):
         connection = self.database_connect()
 
         sql = "SELECT gebruikersnaam, rol FROM gebruiker"
@@ -89,10 +89,14 @@ class Dal:
             counter = counter + 1
             print(str(counter) + ". " + str(user))
 
-        chosen_user = int(input("Welke user wil je verwijderen? (nummer)"))
-        chosen_user = - 1
+        if goal == "action":
+            chosen_user = int(input("Welke user kies je? (nummer)"))
+            chosen_user = - 1
 
-        return(result[chosen_user][0])
+            return (result[chosen_user][0])
+        else:
+            print("niet gelukt")
+            pass
 
     ## User verwijderen
     def delete_user(self, chosen_user_username):
@@ -104,6 +108,21 @@ class Dal:
         cursor.execute(sql, value)
         connection.commit()
         print(cursor.rowcount, "record(s) deleted")
+
+    ## User gegevens aanpassen
+    def modify_user(self, chosen_user, new_username, new_role):
+        connection = self.database_connect()
+
+        sql = "UPDATE gebruiker SET gebruikersnaam = %s, rol = %s WHERE gebruikersnaam = %s"
+        values = (new_username, new_role, chosen_user)
+        cursor = connection.cursor()
+        cursor.execute(sql, values)
+        connection.commit()
+
+        print(cursor.rowcount, "record(s) affected")
+
+
+
 
 
 

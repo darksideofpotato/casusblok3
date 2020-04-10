@@ -41,6 +41,7 @@ class Dal:
 ############################################ einde methods voor de databaseconnectie
 
 ##### User methods
+    ## Login
     def login_user(self, username):
         connection = self.database_connect()
 
@@ -63,13 +64,48 @@ class Dal:
             self.database_disconnect(connection)
             return False
 
+    ## User toevoegen
     def add_user(self, username, role):
         connection = self.database_connect()
 
-        # sql = "INSERT INTO gebruiker (gebruikersnaam, rol) VALUES (%s, %s)"
         sql = "INSERT INTO gebruiker (gebruikersnaam, rol) VALUES (%s, %s)"
         values = (username, role)
         cursor = connection.cursor()
         cursor.execute(sql, values)
         connection.commit()
+
+    ## User lijst ophalen
+    def select_a_user(self):
+        connection = self.database_connect()
+
+        sql = "SELECT gebruikersnaam, rol FROM gebruiker"
+        cursor = connection.cursor()
+        cursor.execute(sql)
+        result = cursor.fetchall()
+
+        print("De volgende users zitten in het systeem:")
+        counter = 0
+        for user in result:
+            counter = counter + 1
+            print(str(counter) + ". " + str(user))
+
+        chosen_user = int(input("Welke user wil je verwijderen? (nummer)"))
+        chosen_user = - 1
+
+        return(result[chosen_user][0])
+
+    ## User verwijderen
+    def delete_user(self, chosen_user_username):
+        connection = self.database_connect()
+
+        sql = "DELETE FROM gebruiker WHERE gebruikersnaam = %s"
+        value = (chosen_user_username,)
+        cursor = connection.cursor()
+        cursor.execute(sql, value)
+        connection.commit()
+        print(cursor.rowcount, "record(s) deleted")
+
+
+
+
 

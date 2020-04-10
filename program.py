@@ -36,6 +36,8 @@ class Program:
                 choice = input()
                 if choice == 'i':
                     self.user_object.get_info()
+
+                ## Het aamaken van een nieuwe gebruiker
                 elif choice == 'a':
                     new_user_username = input ("Wat wordt de username van de nieuwe user?")
                     new_user_role = input("Is het een admin(a) of employee(e)?")
@@ -48,7 +50,14 @@ class Program:
 
                     print("\nDe nieuwe user " + new_user_username + " is toegevoegd!")
                     pass
+                ## Het verwijderen van een user
                 elif choice == 'd':
+                    selected_to_delete = self.dal.select_a_user()
+
+                    print(selected_to_delete)
+                    self.dal.delete_user(selected_to_delete)
+
+
                     pass
                 elif choice == 'm':
                     self.menu()

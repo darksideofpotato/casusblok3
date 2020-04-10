@@ -12,6 +12,7 @@ class Program:
         self.menu()
 
     def menu(self):
+        print("hoi")
         flag = True
         while flag:
             print(
@@ -86,6 +87,7 @@ class Program:
                 elif choice == 'e':
                     exit()
                 pass
+
             elif choice == 'l':
                 print(
                     "Kies 'a' om een leverancier toe te voegen\n"

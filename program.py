@@ -4,7 +4,6 @@ from dal import Dal
 class Program:
     def __init__(self):
 
-        hoi = " hoiasdadsiiii"
         self.dal = Dal()
 
         self.username = input("Wat is je gebruikersnaam?")
@@ -27,6 +26,7 @@ class Program:
             )
             choice = input().lower()
 
+            # TODO: Security er dergelijke kloppend maken
             if choice == 'u':
                 print(
                     "Kies 'i' om je gebruikersinfo te bekijken.\n"
@@ -89,6 +89,7 @@ class Program:
                     exit()
                 pass
 
+            # TODO: Checken of alle menu dingen kloppen met de use cases
             elif choice == 'l':
                 print(
                     "Kies 'a' om een leverancier toe te voegen\n"
@@ -99,16 +100,21 @@ class Program:
                 )
                 choice = input()
                 if choice == 'a':
+                    # TODO: maken
                     pass
                 elif choice == 'd':
+                    # TODO: maken
                     pass
                 elif choice == 'p':
+                    # TODO: maken
                     pass
                 elif choice == 'm':
                     self.menu()
                 elif choice == 'e':
                     exit()
                 pass
+
+            # TODO: Checken of alle menu dingen kloppen met de use cases
             if choice == 'o':
                 print(
                     "Kies 'a' om een order aan te passen\n"
@@ -119,16 +125,21 @@ class Program:
                 )
                 choice = input()
                 if choice == 'a':
+                    # TODO: maken
                     pass
                 elif choice == 'b':
+                    # TODO: maken
                     pass
                 elif choice == 'p':
+                    # TODO: maken
                     pass
                 elif choice == 'm':
                     self.menu()
                 elif choice == 'e':
                     exit()
                 pass
+
+            # TODO: Checken of alle menu dingen kloppen met de use cases
             if choice == 'p':
                 print(
                     "Kies 'a' om een product aan te passen\n"
@@ -139,10 +150,13 @@ class Program:
                 )
                 choice = input()
                 if choice == 'a':
+                    # TODO: maken
                     pass
                 elif choice == 't':
+                    # TODO: maken
                     pass
                 elif choice == 'd':
+                    # TODO: maken
                     pass
                 elif choice == 'm':
                     self.menu()

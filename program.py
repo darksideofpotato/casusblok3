@@ -3,6 +3,8 @@ from dal import Dal
 
 class Program:
     def __init__(self):
+
+        hoi = " hoiasdadsiiii"
         self.dal = Dal()
 
         self.username = input("Wat is je gebruikersnaam?")
@@ -12,7 +14,6 @@ class Program:
         self.menu()
 
     def menu(self):
-        print("hoi")
         flag = True
         while flag:
             print(

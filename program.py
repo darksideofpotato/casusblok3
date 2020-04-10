@@ -26,7 +26,9 @@ class Program:
             )
             choice = input().lower()
 
+            # region User options
             # TODO: Security er dergelijke kloppend maken
+            # Verder klaar!
             if choice == 'u':
                 print(
                     "Kies 'i' om je gebruikersinfo te bekijken.\n"
@@ -88,7 +90,9 @@ class Program:
                 elif choice == 'e':
                     exit()
                 pass
+            # endregion
 
+            # region Leverancier options
             # TODO: Checken of alle menu dingen kloppen met de use cases
             elif choice == 'l':
                 print(
@@ -113,7 +117,9 @@ class Program:
                 elif choice == 'e':
                     exit()
                 pass
+            #endregion
 
+            # region order options
             # TODO: Checken of alle menu dingen kloppen met de use cases
             if choice == 'o':
                 print(
@@ -138,7 +144,9 @@ class Program:
                 elif choice == 'e':
                     exit()
                 pass
+            #endregion
 
+            #region Product options
             # TODO: Checken of alle menu dingen kloppen met de use cases
             if choice == 'p':
                 print(
@@ -163,6 +171,8 @@ class Program:
                 elif choice == 'e':
                     exit()
                 pass
+            #endregion
+
             if choice == 'lo':
                 Program()
             if choice == 'e':

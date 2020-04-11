@@ -98,7 +98,7 @@ class Program:
                 print(
                     "Kies 'a' om een leverancier toe te voegen\n"
                     "Kies 'd' om een leverancier te verwijderen\n"
-                    "Kies 'p' om een leverancier aan te passen\n"
+                    "Kies 'c' om een leverancier aan te passen\n"
                     "Kies 'all voor een volledige lijst van leveranciers\n"
                     "Kies 'm' om terug naar het menu te gaan \n"
                     "Kies 'e' om af te sluiten\n"
@@ -123,9 +123,16 @@ class Program:
                     else:
                         pass
                     pass
-                    pass
-                elif choice == 'p':
-                    # TODO: maken
+                elif choice == 'c':
+                    selected_to_change = self.dal.select_a_company('action')
+
+                    new_company_name = input("Wat is de naam van de leverancier?")
+                    new_company_adres = input("Wat is het adres van de leverancier?")
+                    new_company_email = input("Wat is het emailadres van de leverancier?")
+                    new_company_levertijd = input("Wat is de levertijd van de leverancier?")
+
+
+                    self.dal.modify_company(selected_to_change, new_company_name, new_company_adres, new_company_email, new_company_levertijd)
                     pass
                 elif choice == 'all':
                     self.dal.select_a_company('show')

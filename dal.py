@@ -1,6 +1,7 @@
 import mysql.connector
 from mysql.connector import Error
 from user import User
+from company import Company
 
 global connection
 
@@ -165,6 +166,17 @@ class Dal:
         cursor.execute(sql, value)
         connection.commit()
         print(cursor.rowcount, "record(s) deleted")
+
+    def modify_company(self, chosen_company, new_name, new_adres, new_email, new_levertijd):
+        connection = self.database_connect()
+
+        sql = "UPDATE leverancier SET leveranciernaam = %s, leverancieradres = %s, leverancieremail = %s, levertijd = %s WHERE leveranciernaam = %s"
+        values = (new_name, new_adres, new_email, new_levertijd, chosen_company)
+        cursor = connection.cursor()
+        cursor.execute(sql, values)
+        connection.commit()
+
+        print(cursor.rowcount, "record(s) affected")
 
 #endregion
 

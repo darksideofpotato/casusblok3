@@ -115,7 +115,14 @@ class Program:
                     print("\nDe nieuwe leverancier " + new_company_name + " is toegevoegd!")
                     pass
                 elif choice == 'd':
-                    # TODO: maken
+                    selected_to_delete = self.dal.select_a_company('action')
+                    confirm_delete = input(
+                        "Je hebt gekozen om " + selected_to_delete + " te verwijderen. Weet je dit zeker? (y/n)")
+                    if confirm_delete == "y":
+                        self.dal.delete_company(selected_to_delete)
+                    else:
+                        pass
+                    pass
                     pass
                 elif choice == 'p':
                     # TODO: maken

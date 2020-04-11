@@ -156,6 +156,16 @@ class Dal:
             print("niet gelukt")
             pass
 
+    def delete_company(self, chosen_company):
+        connection = self.database_connect()
+
+        sql = "DELETE FROM leverancier WHERE leveranciernaam = %s"
+        value = (chosen_company,)
+        cursor = connection.cursor()
+        cursor.execute(sql, value)
+        connection.commit()
+        print(cursor.rowcount, "record(s) deleted")
+
 #endregion
 
 

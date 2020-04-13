@@ -213,6 +213,7 @@ class Dal:
            pass
 
     def prepare_order(self):
+        # TODO: netter maken
         userid = self.user.get_user_id()
         today_date = datetime.datetime.today()
         status = "In behandeling"
@@ -231,6 +232,7 @@ class Dal:
         return new_order_id
 
     def place_order(self, order_id, product_id, quantity):
+        # TODO: netter maken
         connection = self.database_connect()
 
         sql = "INSERT INTO `orderproduct` (orderID, productID, hoeveelheid) VALUES (%s, %s, %s)"
@@ -243,6 +245,7 @@ class Dal:
 
 #region Product methods
     def select_a_product(self, goal):
+        # TODO: netter maken
         connection = self.database_connect()
 
         sql = "SELECT productID, productnaam, leveranciernaam, inkoopprijs, voorraadhoeveelheid, minimumvoorraad, maximumvoorraad FROM `product` " \

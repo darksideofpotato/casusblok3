@@ -180,6 +180,38 @@ class Dal:
 
 #endregion
 
+#region Order methods
+
+    def select_an_order(self, goal):
+        # TODO: string formatting en dergelijke
+        connection = self.database_connect()
+
+        sql = "SELECT orderID, datum, orderstatus, gebruikersnaam FROM `order` JOIN gebruiker on `order`.gebruikerID = gebruiker.userID"
+        cursor = connection.cursor()
+        cursor.execute(sql)
+        result = cursor.fetchall()
+
+        print("De volgende orders zitten in het systeem:")
+        counter = 0
+        for company in result:
+            counter = counter + 1
+            print(str(counter) + ". " + str(company))
+
+        if goal == "action":
+            chosen_order = int(input("Welke order kies je? (nummer)"))
+            chosen_order = - 1
+
+            return (result[chosen_order][0])
+        else:
+           print("niet gelukt")
+           pass
+
+#endregion
+
+#region Product methods
+
+#endregion
+
 
 
 

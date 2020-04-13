@@ -148,13 +148,16 @@ class Program:
             # TODO: Checken of alle menu dingen kloppen met de use cases
             if choice == 'o':
                 print(
+                    "Kies 'all' om alle orders te bekijken\n"
                     "Kies 'a' om een order aan te passen\n"
-                    "Kies 'b' om de pending orders te bekijken\n"
-                    "Kies 'p' om een order te plaatsen\n"
+                    "Kies 'p' om een order handmatig te plaatsen\n"
                     "Kies 'm' om terug naar het menu te gaan \n"
                     "Kies 'e' om af te sluiten\n"
                 )
                 choice = input()
+                if choice == 'all':
+                    self.dal.select_an_order("view")
+                    pass
                 if choice == 'a':
                     # TODO: maken
                     pass

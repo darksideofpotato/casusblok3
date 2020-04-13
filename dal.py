@@ -232,7 +232,43 @@ class Dal:
 #endregion
 
 #region Product methods
+    def select_a_product(self, goal):
+        connection = self.database_connect()
 
+        sql = "SELECT productnaam, leveranciernaam, inkoopprijs, voorraadhoeveelheid, minimumvoorraad, maximumvoorraad FROM `product` " \
+              "JOIN leverancier on `product`.leverancierID = leverancier.leverancierID"
+        cursor = connection.cursor()
+        cursor.execute(sql)
+        result = cursor.fetchall()
+
+        print("De volgende producten zitten in het systeem:")
+        counter = 0
+        for company in result:
+            counter = counter + 1
+            print(str(counter) + ". " + str(company))
+
+        if goal == "placeorder":
+
+            list_of_items = {}
+            flag = True
+            while flag:
+                chosen_product = input("Welke product kies je? (nummer)")
+                print(chosen_product)
+
+                if chosen_product != "":
+                    chosen_product = int(chosen_product) - 1
+
+                    hoeveelheid = input("Hoeveel stuks wil je bestellen?")
+                    list_of_items[(result[chosen_product][0])] = hoeveelheid
+
+                    print("item " + result[chosen_product][0] + " toegevoegd!")
+                else:
+                    flag = False
+                    return list_of_items
+
+        else:
+           print("niet gelukt")
+           pass
 #endregion
 
 

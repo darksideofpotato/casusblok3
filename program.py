@@ -160,6 +160,10 @@ class Program:
                     self.dal.select_an_order("view")
                     pass
                 if choice == 'a':
+                    items_to_order = self.dal.select_a_product("placeorder")
+
+                    print(items_to_order)
+
                     #self.dal.place_order()
                     pass
                 elif choice == 'b':

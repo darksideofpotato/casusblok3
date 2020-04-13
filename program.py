@@ -149,8 +149,9 @@ class Program:
             if choice == 'o':
                 print(
                     "Kies 'all' om alle orders te bekijken\n"
-                    "Kies 'a' om een order aan te passen\n"
-                    "Kies 'p' om een order handmatig te plaatsen\n"
+                    "Kies 'a' om een order handmatig te plaatsen\n"
+                    "Kies 'c' om een order aan te passen\n"
+                    
                     "Kies 'm' om terug naar het menu te gaan \n"
                     "Kies 'e' om af te sluiten\n"
                 )
@@ -159,7 +160,7 @@ class Program:
                     self.dal.select_an_order("view")
                     pass
                 if choice == 'a':
-                    # TODO: maken
+                    #self.dal.place_order()
                     pass
                 elif choice == 'b':
                     # TODO: maken

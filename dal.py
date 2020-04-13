@@ -2,6 +2,7 @@ import mysql.connector
 from mysql.connector import Error
 from user import User
 from company import Company
+import datetime
 
 global connection
 
@@ -57,8 +58,8 @@ class Dal:
 
             print("Welkom, " + username.title())
             self.database_disconnect(connection)
-            user = User(result[0][0], result[0][1], result[0][2])
-            return user
+            self.user = User(result[0][0], result[0][1], result[0][2])
+            return self.user
 
         else:
             print("Deze user bestaat niet, of je hebt een typfout gemaakt. Probeer het nog een keer.")
@@ -128,7 +129,8 @@ class Dal:
     def add_company(self, naam, adres, email, levertijd):
         connection = self.database_connect()
 
-        sql = "INSERT INTO leverancier (leveranciernaam, leverancieradres, leverancieremail, levertijd) VALUES (%s, %s, %s, %s)"
+        sql = "INSERT INTO leverancier (leveranciernaam, leverancieradres, " \
+              "leverancieremail, levertijd) VALUES (%s, %s, %s, %s)"
         values = (naam, adres, email, levertijd)
         cursor = connection.cursor()
         cursor.execute(sql, values)
@@ -170,7 +172,8 @@ class Dal:
     def modify_company(self, chosen_company, new_name, new_adres, new_email, new_levertijd):
         connection = self.database_connect()
 
-        sql = "UPDATE leverancier SET leveranciernaam = %s, leverancieradres = %s, leverancieremail = %s, levertijd = %s WHERE leveranciernaam = %s"
+        sql = "UPDATE leverancier SET leveranciernaam = %s, leverancieradres = %s, " \
+              "leverancieremail = %s, levertijd = %s WHERE leveranciernaam = %s"
         values = (new_name, new_adres, new_email, new_levertijd, chosen_company)
         cursor = connection.cursor()
         cursor.execute(sql, values)
@@ -186,7 +189,8 @@ class Dal:
         # TODO: string formatting en dergelijke
         connection = self.database_connect()
 
-        sql = "SELECT orderID, datum, orderstatus, gebruikersnaam FROM `order` JOIN gebruiker on `order`.gebruikerID = gebruiker.userID"
+        sql = "SELECT orderID, datum, orderstatus, gebruikersnaam FROM `order` " \
+              "JOIN gebruiker on `order`.gebruikerID = gebruiker.userID"
         cursor = connection.cursor()
         cursor.execute(sql)
         result = cursor.fetchall()
@@ -197,6 +201,8 @@ class Dal:
             counter = counter + 1
             print(str(counter) + ". " + str(company))
 
+        # TODO: keuze kunnen maken tussen statussen van orders
+
         if goal == "action":
             chosen_order = int(input("Welke order kies je? (nummer)"))
             chosen_order = - 1
@@ -205,6 +211,23 @@ class Dal:
         else:
            print("niet gelukt")
            pass
+
+    # def place_order(self):
+    #     userid = self.user.get_user_id()
+    #     today_date = datetime.datetime.today()
+    #     status = "In behandeling"
+    #
+    #     connection = self.database_connect()
+    #
+    #     sql = "INSERT INTO `order` (datum, orderstatus, gebruikerID) VALUES (%s, %s, %s)"
+    #
+    #     values = (today_date, status, userid)
+    #     cursor = connection.cursor()
+    #     cursor.execute(sql, values)
+    #
+    #     connection.commit()
+
+
 
 #endregion
 

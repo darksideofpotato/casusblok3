@@ -164,7 +164,11 @@ class Program:
 
                     print(items_to_order)
 
-                    #self.dal.place_order()
+                    new_order_id = self.dal.prepare_order()
+
+                    for product, quantity in items_to_order.items():
+                        self.dal.place_order(new_order_id, product, quantity)
+
                     pass
                 elif choice == 'b':
                     # TODO: maken

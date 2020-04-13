@@ -212,30 +212,40 @@ class Dal:
            print("niet gelukt")
            pass
 
-    # def place_order(self):
-    #     userid = self.user.get_user_id()
-    #     today_date = datetime.datetime.today()
-    #     status = "In behandeling"
-    #
-    #     connection = self.database_connect()
-    #
-    #     sql = "INSERT INTO `order` (datum, orderstatus, gebruikerID) VALUES (%s, %s, %s)"
-    #
-    #     values = (today_date, status, userid)
-    #     cursor = connection.cursor()
-    #     cursor.execute(sql, values)
-    #
-    #     connection.commit()
+    def prepare_order(self):
+        userid = self.user.get_user_id()
+        today_date = datetime.datetime.today()
+        status = "In behandeling"
 
+        connection = self.database_connect()
 
+        sql = "INSERT INTO `order` (datum, orderstatus, gebruikerID) VALUES (%s, %s, %s)"
 
+        values = (today_date, status, userid)
+        cursor = connection.cursor()
+        cursor.execute(sql, values)
+        connection.commit()
+
+        new_order_id = cursor.lastrowid
+
+        return new_order_id
+
+    def place_order(self, order_id, product_id, quantity):
+        connection = self.database_connect()
+
+        sql = "INSERT INTO `orderproduct` (orderID, productID, hoeveelheid) VALUES (%s, %s, %s)"
+
+        values = (order_id, product_id, quantity)
+        cursor = connection.cursor()
+        cursor.execute(sql, values)
+        connection.commit()
 #endregion
 
 #region Product methods
     def select_a_product(self, goal):
         connection = self.database_connect()
 
-        sql = "SELECT productnaam, leveranciernaam, inkoopprijs, voorraadhoeveelheid, minimumvoorraad, maximumvoorraad FROM `product` " \
+        sql = "SELECT productID, productnaam, leveranciernaam, inkoopprijs, voorraadhoeveelheid, minimumvoorraad, maximumvoorraad FROM `product` " \
               "JOIN leverancier on `product`.leverancierID = leverancier.leverancierID"
         cursor = connection.cursor()
         cursor.execute(sql)
@@ -261,7 +271,7 @@ class Dal:
                     hoeveelheid = input("Hoeveel stuks wil je bestellen?")
                     list_of_items[(result[chosen_product][0])] = hoeveelheid
 
-                    print("item " + result[chosen_product][0] + " toegevoegd!")
+                    print("item " + result[chosen_product][1] + " toegevoegd!")
                 else:
                     flag = False
                     return list_of_items

@@ -425,6 +425,9 @@ class Dal:
             if outcome_check != None:
                 #TODO: zorgen dat bij meerdere producten van een leverancier in een keer niet meerdere order
                 # ID's worden gemaakt
+                #TODO: nagaan of het handig is dat het product gelijk wordt geupdate, of dat daar
+                # iets voor moet komen op basis van status van de order
+
                 print("daar moeten " + str(outcome_check) + " van worden bijbesteld")
                 new_order_id = self.prepare_order()
                 self.place_order(new_order_id, product[0], outcome_check)

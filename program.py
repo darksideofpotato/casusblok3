@@ -4,7 +4,7 @@ from dal import Dal
 class Program:
     # TODO: rollen toevoegen
     # TODO: kijken of er meerdere classes gebruikt kunnen worden vanuit de dal class
-    # TODO: automatisch orders plaatsen
+    # TODO: automatisch orders plaatsen afwerken
 
     def __init__(self):
 
@@ -27,7 +27,7 @@ class Program:
                 "Kies 'p' om naar de opties voor producten te gaan\n"
                 "Kies 'lo' om uit te loggen \n"
                 "Kies 'e' om af te sluiten\n"
-                "test"
+                "Kies 'test' voor een demo van het automatische bevoorraadsysteem"
             )
             choice = input().lower()
 

@@ -254,6 +254,25 @@ class Dal:
         connection.commit()
 
         print(cursor.rowcount, "record(s) affected")
+
+    def select_current_order_products(self, orderID):
+        # TODO: netter maken
+        connection = self.database_connect()
+
+        sql = "SELECT orderproduct.productID, productnaam, hoeveelheid FROM `orderproduct` " \
+              "JOIN product on `product`.productID = orderproduct.productID WHERE orderID = %s"
+        value = (orderID,)
+        cursor = connection.cursor()
+        cursor.execute(sql, value)
+        result = cursor.fetchall()
+
+        counter = 0
+        for product in result:
+            counter = counter + 1
+            print(str(counter) + ". " + str(product))
+
+        # TODO: een product aan kunnen passen
+
 #endregion
 
 #region Product methods
@@ -269,6 +288,7 @@ class Dal:
 
         print("De volgende producten zitten in het systeem:")
         counter = 0
+        # TODO: company aanpassen
         for company in result:
             counter = counter + 1
             print(str(counter) + ". " + str(company))

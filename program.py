@@ -174,32 +174,44 @@ class Program:
                     ## Het aanpassen van de status
                     selected_to_change = self.dal.select_an_order('action')
 
-                    print("'1.' In behandeling\n"
-                          "'2.' Betaald\n"
-                          "'3.' Verzonden\n"
-                          "'4.' Geleverd")
-                    flag2 = True
-                    while flag2:
-                        new_order_status = input("Wat is de nieuwe status?")
+                    what_to_change = input("Wat wil je aanpassen aan deze order?")
 
-                        if int(new_order_status) == 1:
-                            new_order_status = "In behandeling"
-                            flag2 = False
-                        elif int(new_order_status) == 2:
-                            new_order_status = "Betaald"
-                            flag2 = False
-                        elif int(new_order_status) == 3:
-                            new_order_status = "Verzonden"
-                            flag2 = False
-                        elif int(new_order_status) == 4:
-                            new_order_status = "Geleverd"
-                            flag2 = False
-                        else:
-                            print("Je invoer klopt niet, probeer het nog een keer")
+                    if what_to_change == "status":
+                        print("'1.' In behandeling\n"
+                              "'2.' Betaald\n"
+                              "'3.' Verzonden\n"
+                              "'4.' Geleverd")
+                        flag2 = True
+                        while flag2:
+                            new_order_status = input("Wat is de nieuwe status?")
 
-                    self.dal.modify_order(selected_to_change, "status", new_order_status)
+                            if int(new_order_status) == 1:
+                                new_order_status = "In behandeling"
+                                flag2 = False
+                            elif int(new_order_status) == 2:
+                                new_order_status = "Betaald"
+                                flag2 = False
+                            elif int(new_order_status) == 3:
+                                new_order_status = "Verzonden"
+                                flag2 = False
+                            elif int(new_order_status) == 4:
+                                new_order_status = "Geleverd"
+                                flag2 = False
+                            else:
+                                print("Je invoer klopt niet, probeer het nog een keer")
 
-                    pass
+                        self.dal.modify_order(selected_to_change, "status", new_order_status)
+
+                    ## het aanpassen van de producten van een order
+                    elif what_to_change == "producten":
+                        self.dal.select_current_order_products(selected_to_change)
+                        pass
+
+                    else:
+                        print("Je input klopt niet helemaal, probeer het nog een keer.")
+                        # TODO: toevoegen flag loop voor de else
+
+                        pass
                 elif choice == 'm':
                     self.menu()
                 elif choice == 'e':

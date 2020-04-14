@@ -423,7 +423,8 @@ class Dal:
             outcome_check = the_product.check_quantity()
 
             if outcome_check != None:
-                #TODO: order products
+                #TODO: zorgen dat bij meerdere producten van een leverancier in een keer niet meerdere order
+                # ID's worden gemaakt
                 print("daar moeten " + str(outcome_check) + " van worden bijbesteld")
                 new_order_id = self.prepare_order()
                 self.place_order(new_order_id, product[0], outcome_check)

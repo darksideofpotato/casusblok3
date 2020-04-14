@@ -151,7 +151,6 @@ class Program:
                     "Kies 'all' om alle orders te bekijken\n"
                     "Kies 'a' om een order handmatig te plaatsen\n"
                     "Kies 'c' om een order aan te passen\n"
-                    
                     "Kies 'm' om terug naar het menu te gaan \n"
                     "Kies 'e' om af te sluiten\n"
                 )
@@ -170,9 +169,41 @@ class Program:
                         self.dal.place_order(new_order_id, product, quantity)
 
                     pass
-                elif choice == 'b':
-                    # TODO: maken
+
+                elif choice == 'c':
+                    ## Het aanpassen van de status
+                    selected_to_change = self.dal.select_an_order('action')
+
+                    print("'1.' In behandeling\n"
+                          "'2.' Betaald\n"
+                          "'3.' Verzonden\n"
+                          "'4.' Geleverd")
+                    flag2 = True
+                    while flag2:
+                        new_order_status = input("Wat is de nieuwe status?")
+
+                        if int(new_order_status) == 1:
+                            new_order_status = "In behandeling"
+                            flag2 = False
+                        elif int(new_order_status) == 2:
+                            new_order_status = "Betaald"
+                            flag2 = False
+                        elif int(new_order_status) == 3:
+                            new_order_status = "Verzonden"
+                            flag2 = False
+                        elif int(new_order_status) == 4:
+                            new_order_status = "Geleverd"
+                            flag2 = False
+                        else:
+                            print("Je invoer klopt niet, probeer het nog een keer")
+
+                    self.dal.modify_order(selected_to_change, "status", new_order_status)
+
                     pass
+                elif choice == 'm':
+                    self.menu()
+                elif choice == 'e':
+                    exit()
                 elif choice == 'p':
                     # TODO: maken
                     pass

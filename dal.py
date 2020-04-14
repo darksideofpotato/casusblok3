@@ -197,20 +197,20 @@ class Dal:
 
         print("De volgende orders zitten in het systeem:")
         counter = 0
-        for company in result:
+        for order in result:
             counter = counter + 1
-            print(str(counter) + ". " + str(company))
+            print(str(counter) + ". " + str(order))
 
         # TODO: keuze kunnen maken tussen statussen van orders
 
         if goal == "action":
             chosen_order = int(input("Welke order kies je? (nummer)"))
-            chosen_order = - 1
+            chosen_order = chosen_order - 1
 
             return (result[chosen_order][0])
         else:
-           print("niet gelukt")
            pass
+
 
     def prepare_order(self):
         # TODO: netter maken
@@ -241,6 +241,19 @@ class Dal:
         cursor = connection.cursor()
         cursor.execute(sql, values)
         connection.commit()
+
+    def modify_order(self, order_id, what_to_change, new_value):
+        connection = self.database_connect()
+
+        if what_to_change == "status":
+            sql = "UPDATE `order` SET orderstatus = %s WHERE orderID = %s"
+            values = (new_value, order_id)
+
+        cursor = connection.cursor()
+        cursor.execute(sql, values)
+        connection.commit()
+
+        print(cursor.rowcount, "record(s) affected")
 #endregion
 
 #region Product methods

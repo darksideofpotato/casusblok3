@@ -411,21 +411,23 @@ class Dal:
 
         connection = self.database_connect()
 
-        sql = "SELECT productID, productnaam, leveranciernaam, inkoopprijs, voorraadhoeveelheid, minimumvoorraad, maximumvoorraad FROM `product` " \
-              "JOIN leverancier on `product`.leverancierID = leverancier.leverancierID"
+        sql = "SELECT productID, productnaam, leverancierID, inkoopprijs, voorraadhoeveelheid, minimumvoorraad, maximumvoorraad FROM `product` "
+
         cursor = connection.cursor()
         cursor.execute(sql)
         result = cursor.fetchall()
 
         counter = 1
         for product in result:
-            print(product)
             the_product = Product(product[0], product[1], product[2], product[3], product[4], product[5], product[6])
             outcome_check = the_product.check_quantity()
 
             if outcome_check != None:
                 #TODO: order products
                 print("daar moeten " + str(outcome_check) + " van worden bijbesteld")
+                new_order_id = self.prepare_order()
+                self.place_order(new_order_id, product[0], outcome_check)
+                self.modify_product(product[0], product[1], product[2], product[3], product[6], product[5], product[6])
                 pass
             else:
                 counter = counter + 1

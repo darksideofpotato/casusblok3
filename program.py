@@ -27,6 +27,7 @@ class Program:
                 "Kies 'p' om naar de opties voor producten te gaan\n"
                 "Kies 'lo' om uit te loggen \n"
                 "Kies 'e' om af te sluiten\n"
+                "test"
             )
             choice = input().lower()
 
@@ -309,6 +310,10 @@ class Program:
                 Program()
             if choice == 'e':
                 exit()
+
+            ############# Test voor het automatisch bestellen van een product
+            elif choice == 'test':
+                self.dal.check_all_products()
 
 
 Program()

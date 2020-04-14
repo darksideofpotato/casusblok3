@@ -2,6 +2,7 @@ import mysql.connector
 from mysql.connector import Error
 from user import User
 from company import Company
+from product import Product
 import datetime
 
 global connection
@@ -213,6 +214,9 @@ class Dal:
         else:
            pass
 
+    def auto_order(self):
+        # TODO: maken
+        pass
 
     def prepare_order(self):
         # TODO: netter maken
@@ -400,6 +404,27 @@ class Dal:
         connection.commit()
 
         print(cursor.rowcount, "record(s) affected")
+
+    def check_all_products(self):
+        # Deze functie controleerd alle producten in de database of er iets nieuws bijbesteld moet worden.
+        # Is dit het geval, dan zal een product bijbesteld worden.
+
+        connection = self.database_connect()
+
+        sql = "SELECT productID, productnaam, leveranciernaam, inkoopprijs, voorraadhoeveelheid, minimumvoorraad, maximumvoorraad FROM `product` " \
+              "JOIN leverancier on `product`.leverancierID = leverancier.leverancierID"
+        cursor = connection.cursor()
+        cursor.execute(sql)
+        result = cursor.fetchall()
+
+        counter = 1
+        for product in result:
+            print(product)
+            the_product = Product(product[0], product[1], product[2], product[3], product[4], product[5], product[6])
+            the_product.check_quantity()
+            counter = counter + 1
+        #TODO: maken
+        pass
 #endregion
 
 

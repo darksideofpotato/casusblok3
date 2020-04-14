@@ -203,6 +203,7 @@ class Dal:
 
         # TODO: keuze kunnen maken tussen statussen van orders
         # TODO: laten zien van producten binnen een order
+        # TODO: Bij delete alleen orders laten zien die in behandeling zijn
 
         if goal == "action":
             chosen_order = int(input("Welke order kies je? (nummer)"))
@@ -286,12 +287,27 @@ class Dal:
         else:
             pass
 
+    def delete_order(self, chosen_order):
+        self.delete_order_product(chosen_order, "null")
+        # TODO: netter maken
+        connection = self.database_connect()
+
+        sql = "DELETE FROM `order` WHERE orderID = %s"
+        value = (chosen_order,)
+        cursor = connection.cursor()
+        cursor.execute(sql, value)
+        connection.commit()
+        print(cursor.rowcount, "record(s) deleted")
+
     def delete_order_product(self, order, product):
         #TODO: netter maken
         connection = self.database_connect()
-
-        sql = "DELETE FROM orderproduct WHERE orderID = %s and productID = %s"
-        value = (order, product,)
+        if product != "null":
+            sql = "DELETE FROM orderproduct WHERE orderID = %s and productID = %s"
+            value = (order, product,)
+        else:
+            sql = "DELETE FROM orderproduct WHERE orderID = %s"
+            value = (order,)
         cursor = connection.cursor()
         cursor.execute(sql, value)
         connection.commit()

@@ -170,7 +170,6 @@ class Program:
                         self.dal.place_order(new_order_id, product, quantity)
 
                     pass
-
                 elif choice == 'c':
                     ## Het aanpassen van de status
                     selected_to_change = self.dal.select_an_order('action')
@@ -228,6 +227,10 @@ class Program:
 
                         pass
                 elif choice == 'd':
+                    chosen_order_to_delete = self.dal.select_an_order("action")
+
+                    self.dal.delete_order(chosen_order_to_delete)
+
                     # TODO: maken
                     # Alleen bestellingen die in behandeling zijn kunnen verwijderd worden!
                     pass

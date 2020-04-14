@@ -334,7 +334,6 @@ class Dal:
             print(str(counter) + ". " + str(company))
 
         if goal == "placeorder":
-
             list_of_items = {}
             flag = True
             while flag:
@@ -352,6 +351,12 @@ class Dal:
                     flag = False
                     return list_of_items
 
+        elif goal == "action":
+            chosen_product = int(input("Welk product kies je? (nummer)"))
+            chosen_product = chosen_product - 1
+
+            return (result[chosen_product][0])
+
         else:
            print("niet gelukt")
            pass
@@ -366,6 +371,21 @@ class Dal:
         cursor = connection.cursor()
         cursor.execute(sql, values)
         connection.commit()
+
+    def delete_product(self, chosen_product):
+        # Er is voor gekozen om de koppelingen uit andere tabellen niet te verwijderen. Dit omdat er nog
+        # orders kunnen lopen, en het bedrijf deze appart wil cancelen indien nodig. Ook kan het het geval zijn
+        # dat een product eerst opgemaakt wordt (inclusief wat er nog besteld is) en dat het product
+        # vervolgens pas ge "discontinued" wordt.
+
+        connection = self.database_connect()
+
+        sql = "DELETE FROM product WHERE productID = %s"
+        value = (chosen_product,)
+        cursor = connection.cursor()
+        cursor.execute(sql, value)
+        connection.commit()
+        print(cursor.rowcount, "record(s) deleted")
 #endregion
 
 

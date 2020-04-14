@@ -271,6 +271,16 @@ class Program:
                 elif choice == 'c':
                     # TODO: maken
                     pass
+                elif choice == 'd':
+                    # TODO: netter maken
+                    selected_to_delete = self.dal.select_a_product('action')
+                    confirm_delete = input(
+                        "Je hebt gekozen om " + str(selected_to_delete) + " te verwijderen. Weet je dit zeker? (y/n)")
+                    if confirm_delete == "y":
+                        self.dal.delete_product(selected_to_delete)
+                    else:
+                        pass
+                    pass
                 elif choice == 'm':
                     self.menu()
                 elif choice == 'e':

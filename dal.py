@@ -139,7 +139,7 @@ class Dal:
     def select_a_company(self, goal):
         connection = self.database_connect()
 
-        sql = "SELECT leveranciernaam, leverancieradres, leverancieremail, levertijd FROM leverancier"
+        sql = "SELECT leverancierID, leveranciernaam, leverancieradres, leverancieremail, levertijd FROM leverancier"
         cursor = connection.cursor()
         cursor.execute(sql)
         result = cursor.fetchall()
@@ -317,6 +317,7 @@ class Dal:
 #region Product methods
     def select_a_product(self, goal):
         # TODO: netter maken
+        # TODO: weergave inkoopprijs
         connection = self.database_connect()
 
         sql = "SELECT productID, productnaam, leveranciernaam, inkoopprijs, voorraadhoeveelheid, minimumvoorraad, maximumvoorraad FROM `product` " \
@@ -354,6 +355,17 @@ class Dal:
         else:
            print("niet gelukt")
            pass
+
+    def add_product(self, leverancier, productnaam, inkoopprijs, voorraad, min, max):
+        connection = self.database_connect()
+
+        sql = "INSERT INTO product (leverancierID, productnaam, inkoopprijs, " \
+              "voorraadhoeveelheid, minimumvoorraad, maximumvoorraad) VALUES (%s, %s, %s, %s, %s, %s)"
+
+        values = (leverancier, productnaam, inkoopprijs, voorraad, min, max)
+        cursor = connection.cursor()
+        cursor.execute(sql, values)
+        connection.commit()
 #endregion
 
 

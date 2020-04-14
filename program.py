@@ -144,7 +144,7 @@ class Program:
                 pass
             #endregion
 
-            # region order options
+            # region Order options
             # TODO: Checken of alle menu dingen kloppen met de use cases
             if choice == 'o':
                 print(
@@ -227,12 +227,10 @@ class Program:
 
                         pass
                 elif choice == 'd':
+                    # TODO: Maken dat alleen bestellingen in behandeling verwijderd kunnen worden
                     chosen_order_to_delete = self.dal.select_an_order("action")
 
                     self.dal.delete_order(chosen_order_to_delete)
-
-                    # TODO: maken
-                    # Alleen bestellingen die in behandeling zijn kunnen verwijderd worden!
                     pass
                 elif choice == 'm':
                     self.menu()
@@ -245,20 +243,32 @@ class Program:
             # TODO: Checken of alle menu dingen kloppen met de use cases
             if choice == 'p':
                 print(
-                    "Kies 'a' om een product aan te passen\n"
-                    "Kies 't' om een product toe te voegen\n"
+                    "Kies 'all' om alle producten te bekijken\n"
+                    "Kies 'a' om een product toe te voegen\n"
+                    "Kies 'c' om een product aan te passen"
                     "Kies 'd' om een product te verwijderen\n"
                     "Kies 'm' om terug naar het menu te gaan \n"
                     "Kies 'e' om af te sluiten\n"
                 )
                 choice = input()
-                if choice == 'a':
-                    # TODO: maken
+                if choice == 'all':
+                    self.dal.select_a_product("view")
                     pass
-                elif choice == 't':
-                    # TODO: maken
+                elif choice == 'a':
+                    #TODO: input checks
+                    new_product_name = input("Wat is de naam van het nieuwe product?")
+                    new_product_leverancier = self.dal.select_a_company("action")
+                    new_product_inkoopprijs = input("Wat is de inkoopprijs?")
+                    new_product_voorraad = 0
+                    new_product_minvoorraad = input("Geef een limiet van de minimum voorraad")
+                    new_product_maxvoorraad = input("Geef een limiet van de maximum voorraad")
+
+                    self.dal.add_product(new_product_leverancier, new_product_name, new_product_inkoopprijs,
+                                         new_product_voorraad, new_product_minvoorraad, new_product_maxvoorraad)
+
+                    print("\nHet nieuwe product " + new_product_name + " is toegevoegd!")
                     pass
-                elif choice == 'd':
+                elif choice == 'c':
                     # TODO: maken
                     pass
                 elif choice == 'm':

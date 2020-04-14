@@ -202,6 +202,7 @@ class Dal:
             print(str(counter) + ". " + str(order))
 
         # TODO: keuze kunnen maken tussen statussen van orders
+        # TODO: laten zien van producten binnen een order
 
         if goal == "action":
             chosen_order = int(input("Welke order kies je? (nummer)"))
@@ -255,7 +256,7 @@ class Dal:
 
         print(cursor.rowcount, "record(s) affected")
 
-    def select_current_order_products(self, orderID):
+    def select_current_order_products(self, goal, orderID):
         # TODO: netter maken
         connection = self.database_connect()
 
@@ -272,7 +273,26 @@ class Dal:
             print(str(counter) + ". " + str(product))
 
         # TODO: een product aan kunnen passen
+        if goal == "action":
+            chosen_product = int(input("Welk product kies je? (nummer)"))
+            chosen_product = chosen_product - 1
 
+            chosen = {orderID: result[chosen_product][0]}
+            return (chosen)
+        else:
+            pass
+
+    def delete_order_product(self, order, product):
+        #TODO: netter maken
+        connection = self.database_connect()
+
+
+        sql = "DELETE FROM orderproduct WHERE orderID = %s and productID = %s"
+        value = (order, product,)
+        cursor = connection.cursor()
+        cursor.execute(sql, value)
+        connection.commit()
+        print(cursor.rowcount, "record(s) deleted")
 #endregion
 
 #region Product methods

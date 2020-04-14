@@ -175,6 +175,7 @@ class Program:
                     selected_to_change = self.dal.select_an_order('action')
 
                     what_to_change = input("Wat wil je aanpassen aan deze order?")
+                    #TODO: Toevoegen welke keuzes je hebt
 
                     if what_to_change == "status":
                         print("'1.' In behandeling\n"
@@ -204,7 +205,16 @@ class Program:
 
                     ## het aanpassen van de producten van een order
                     elif what_to_change == "producten":
-                        self.dal.select_current_order_products(selected_to_change)
+                        chosen_product_and_order = self.dal.select_current_order_products("action", selected_to_change)
+                        #TODO: print bijzetten
+                        choice = input("Wat wil je met dit product doen?")
+                        if choice == "verwijderen":
+                            for order, product in chosen_product_and_order.items():
+                                self.dal.delete_order_product(order, product)
+                            pass
+                        elif choice == "hoeveelheid":
+                            #TODO: maken
+                            pass
                         pass
 
                     else:

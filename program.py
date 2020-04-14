@@ -2,6 +2,10 @@ from dal import Dal
 
 
 class Program:
+    # TODO: rollen toevoegen
+
+    # TODO: automatisch orders plaatsen
+
     def __init__(self):
 
         self.dal = Dal()

@@ -14,5 +14,5 @@ class Product:
 
             return quantity_to_order
         else:
-            print("Er is nog genoeg op voorraad")
+            return print("Er is nog genoeg op voorraad")
             pass

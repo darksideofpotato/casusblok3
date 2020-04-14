@@ -421,9 +421,14 @@ class Dal:
         for product in result:
             print(product)
             the_product = Product(product[0], product[1], product[2], product[3], product[4], product[5], product[6])
-            the_product.check_quantity()
-            counter = counter + 1
-        #TODO: maken
+            outcome_check = the_product.check_quantity()
+
+            if outcome_check != None:
+                #TODO: order products
+                print("daar moeten " + str(outcome_check) + " van worden bijbesteld")
+                pass
+            else:
+                counter = counter + 1
         pass
 #endregion
 

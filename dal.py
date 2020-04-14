@@ -245,11 +245,15 @@ class Dal:
 
     def modify_order(self, order_id, what_to_change, new_value):
         connection = self.database_connect()
-
+        # TODO: input check
         if what_to_change == "status":
             sql = "UPDATE `order` SET orderstatus = %s WHERE orderID = %s"
             values = (new_value, order_id)
+        elif what_to_change == "hoeveelheid":
+            sql = "UPDATE `orderproduct` SET hoeveelheid = %s WHERE orderID = %s and productID = %s"
 
+            for order, product in order_id.items():
+                values = (new_value, order, product)
         cursor = connection.cursor()
         cursor.execute(sql, values)
         connection.commit()
@@ -285,7 +289,6 @@ class Dal:
     def delete_order_product(self, order, product):
         #TODO: netter maken
         connection = self.database_connect()
-
 
         sql = "DELETE FROM orderproduct WHERE orderID = %s and productID = %s"
         value = (order, product,)

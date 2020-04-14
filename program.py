@@ -151,6 +151,7 @@ class Program:
                     "Kies 'all' om alle orders te bekijken\n"
                     "Kies 'a' om een order handmatig te plaatsen\n"
                     "Kies 'c' om een order aan te passen\n"
+                    "Kies 'd' om een order te annuleren\n"                
                     "Kies 'm' om terug naar het menu te gaan \n"
                     "Kies 'e' om af te sluiten\n"
                 )
@@ -204,6 +205,7 @@ class Program:
                         self.dal.modify_order(selected_to_change, "status", new_order_status)
 
                     ## het aanpassen van de producten van een order
+                    #TODO: optie om extra producten toe te voegen zolang order nog in behandeling is
                     elif what_to_change == "producten":
                         chosen_product_and_order = self.dal.select_current_order_products("action", selected_to_change)
                         #TODO: print bijzetten
@@ -213,7 +215,10 @@ class Program:
                                 self.dal.delete_order_product(order, product)
                             pass
                         elif choice == "hoeveelheid":
-                            #TODO: maken
+                            #TODO: input check toevoegen
+                            #TODO: netter maken
+                            nieuwe_hoeveelheid = input("Naar welke hoeveelheid moet het aangepast worden?")
+                            self.dal.modify_order(chosen_product_and_order, "hoeveelheid", nieuwe_hoeveelheid)
                             pass
                         pass
 
@@ -222,12 +227,9 @@ class Program:
                         # TODO: toevoegen flag loop voor de else
 
                         pass
-                elif choice == 'm':
-                    self.menu()
-                elif choice == 'e':
-                    exit()
-                elif choice == 'p':
+                elif choice == 'd':
                     # TODO: maken
+                    # Alleen bestellingen die in behandeling zijn kunnen verwijderd worden!
                     pass
                 elif choice == 'm':
                     self.menu()

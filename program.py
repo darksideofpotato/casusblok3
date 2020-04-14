@@ -124,6 +124,7 @@ class Program:
                         pass
                     pass
                 elif choice == 'c':
+                    # TODO: beter maken
                     selected_to_change = self.dal.select_a_company('action')
 
                     new_company_name = input("Wat is de naam van de leverancier?")
@@ -269,7 +270,19 @@ class Program:
                     print("\nHet nieuwe product " + new_product_name + " is toegevoegd!")
                     pass
                 elif choice == 'c':
-                    # TODO: maken
+                    # TODO: beter maken
+                    selected_to_change = self.dal.select_a_product('action')
+
+                    new_product_name = input("Wat is de naam van het nieuwe product?")
+                    new_product_leverancier = self.dal.select_a_company("action")
+                    new_product_inkoopprijs = input("Wat is de inkoopprijs?")
+                    new_product_voorraad = 0
+                    new_product_minvoorraad = input("Geef een limiet van de minimum voorraad")
+                    new_product_maxvoorraad = input("Geef een limiet van de maximum voorraad")
+
+                    self.dal.modify_product(selected_to_change, new_product_name, new_product_leverancier,
+                                            new_product_inkoopprijs, new_product_voorraad,
+                                            new_product_minvoorraad, new_product_maxvoorraad)
                     pass
                 elif choice == 'd':
                     # TODO: netter maken

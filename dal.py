@@ -386,6 +386,20 @@ class Dal:
         cursor.execute(sql, value)
         connection.commit()
         print(cursor.rowcount, "record(s) deleted")
+
+    def modify_product(self, chosen_product, naam, leverancier, prijs, voorraad, min, max):
+        connection = self.database_connect()
+
+
+        sql = "UPDATE product SET leverancierID = %s, productnaam = %s, inkoopprijs = %s, " \
+              "voorraadhoeveelheid = %s, minimumvoorraad = %s, maximumvoorraad = %s WHERE productID = %s"
+
+        values = (leverancier, naam, prijs, voorraad, min, max, chosen_product)
+        cursor = connection.cursor()
+        cursor.execute(sql, values)
+        connection.commit()
+
+        print(cursor.rowcount, "record(s) affected")
 #endregion
 
 

@@ -82,7 +82,7 @@ class Dal:
 
         if goal == "action":
             chosen_user = int(input("Welke user kies je? (nummer)"))
-            chosen_user = - 1
+            chosen_user = chosen_user - 1
 
             return (result[chosen_user][0])
         else:

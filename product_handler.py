@@ -5,9 +5,20 @@ class Producthandler:
         self.result = result
 
     def select_a_product(self, goal):
+        header_lst = ("ProductID", "Product", "Leverancier", "Inkoopprijs", "Voorraad", "Minimum", "Maximum")
         print("De volgende producten zitten in het systeem:")
         counter = 0
 
+        # Hij doet alleen het DB product raar formatten
+        for x in header_lst:
+            x = '{:15}'.format(x)
+            print(x, end="  ")
+        print("\n")
+        for y in self.result:
+            for x in y:
+                x = '{:16}'.format(str(x))
+                print(x, end=" ")
+        print("\n")
         for product in self.result:
             counter = counter + 1
             print(str(counter) + ". " + str(product))

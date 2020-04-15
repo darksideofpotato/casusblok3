@@ -328,7 +328,6 @@ class Dal:
         # TODO: netter maken
         # TODO: weergave inkoopprijs
         connection = self.database_connect()
-        header_lst = ("ProductID", "Product", "Leverancier", "Inkoopprijs", "Voorraad", "Minimum", "Maximum")
 
         sql = "SELECT productID, productnaam, leveranciernaam, inkoopprijs, voorraadhoeveelheid, minimumvoorraad, maximumvoorraad FROM `product` " \
            "JOIN leverancier on `product`.leverancierID = leverancier.leverancierID"
@@ -340,15 +339,6 @@ class Dal:
         product_handler = Producthandler(result)
 
         picked_product = product_handler.select_a_product(goal)
-        # Hij doet alleen het DB product raar formatten
-        for x in header_lst:
-            x = '{:10}'.format(x)
-            print(x, end= "  ")
-        print("\n")
-        for x in picked_product:
-            x = '{:11}'.format(x)
-            print(x, end= " ")
-        print("\n")
         # Hier stond print(picked_product)
         if goal == "productaanpassen":
             result2 = self.get_company_id_from_product(picked_product[0])

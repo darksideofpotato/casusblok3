@@ -251,7 +251,7 @@ class Program:
                 print(
                     "Kies 'all' om alle producten te bekijken\n"
                     "Kies 'a' om een product toe te voegen\n"
-                    "Kies 'c' om een product aan te passen"
+                    "Kies 'c' om een product aan te passen\n"
                     "Kies 'd' om een product te verwijderen\n"
                     "Kies 'm' om terug naar het menu te gaan \n"
                     "Kies 'e' om af te sluiten\n"

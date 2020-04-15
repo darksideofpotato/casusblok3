@@ -18,7 +18,7 @@ class Dal:
               host="localhost",
               database='casus_voorraden',
               user="root",
-              passwd="root", auth_plugin='mysql_native_password'
+              passwd="GeleBanaan043", auth_plugin='mysql_native_password'
             )
 
             return connection
@@ -104,7 +104,7 @@ class Dal:
     def modify_user(self, chosen_user, new_username, new_role):
         connection = self.database_connect()
 
-        sql = "UPDATE gebruiker SET gebruikersnaam = %s, rol = %s WHERE gebruikersnaam = %s"
+        sql = "UPDATE gebruiker SET gebruikersnaam = %s, rol = %s WHERE gebruikersnaam = %s" # Hij maakt nieuwe user aan ipv oude user aan te passen
         values = (new_username, new_role, chosen_user)
         cursor = connection.cursor()
         cursor.execute(sql, values)

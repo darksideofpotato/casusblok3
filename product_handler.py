@@ -27,7 +27,7 @@ class Producthandler:
             list_of_items = {}
             flag = True
             while flag:
-                chosen_product = input("Welke product kies je? (nummer)")
+                chosen_product = input("Welke product kies je? (ProductID)")
 
                 if chosen_product != "":
                     chosen_product = int(chosen_product) - 1
@@ -40,14 +40,15 @@ class Producthandler:
 
                         list_of_items[(self.result[chosen_product][0])] = hoeveelheid
                         print("item " + self.result[chosen_product][1] + " toegevoegd aan order!")
+                        flag = False
                     else:
                         print("Je probeert meer te bestellen dan de maximum voorraad toelaat. Probeer minder"
-                              "te bestellen.")
+                              " te bestellen.")
                 else:
                     flag = False
                     return list_of_items
         elif goal == "productaanpassen":
-            chosen_product = int(input("Welk product kies je? (nummer)"))
+            chosen_product = int(input("Welk product kies je? (ProductID)"))
             chosen_product = chosen_product - 1
             return (self.result[chosen_product])
 

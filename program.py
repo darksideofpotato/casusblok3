@@ -174,6 +174,11 @@ class Program:
 
                     for product, quantity in items_to_order.items():
                         self.dal.place_order(new_order_id, product, quantity)
+                        whole_product = self.dal.get_product_by_id(product)
+                        self.dal.modify_product(whole_product.productID,whole_product.leverancierID,
+                                                whole_product.productnaam, whole_product.inkoopprijs,
+                                                int(whole_product.voorraad) + int(quantity),
+                                                whole_product.min,whole_product.max)
 
                     pass
                 elif choice == 'c':

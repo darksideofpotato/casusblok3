@@ -12,11 +12,11 @@ class Producthandler:
         # Hij doet alleen het DB product raar formatten
         for x in header_lst:
             x = '{:15}'.format(x)
-            print(x, end="  ")
+            print(x, end=" ")
         print("\n")
         for y in self.result:
             for x in y:
-                x = '{:16}'.format(str(x))
+                x = '{:15}'.format(str(x))
                 print(x, end=" ")
         print("\n")
         for product in self.result:

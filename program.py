@@ -20,7 +20,7 @@ class Program:
         flag = True
         while flag:
             print(
-                "Je bevind je in het menu. Wat wil je doen?\n\n"
+                "Je bevindt je in het menu. Wat wil je doen?\n\n"
                 "Kies 'u' om naar de opties voor gebruikers te gaan\n"
                 "Kies 'l' om naar de opties voor leveranciers te gaan\n"
                 "Kies 'o' om naar de opties van orders te gaan\n"
@@ -276,18 +276,18 @@ class Program:
                     pass
                 elif choice == 'c':
                     # TODO: beter maken
-                    selected_to_change = self.dal.select_a_product('action')
+                    selected_to_change = self.dal.select_a_product('productaanpassen')
+                    print(selected_to_change.productID)
+                    #TODO: tekst over bedrijf aanpassen
+                    leverancier = self.dal.select_a_company("action")
+                    modified_values = selected_to_change.modify_product(leverancier)
 
-                    new_product_name = input("Wat is de naam van het nieuwe product?")
-                    new_product_leverancier = self.dal.select_a_company("action")
-                    new_product_inkoopprijs = input("Wat is de inkoopprijs?")
-                    new_product_voorraad = 0
-                    new_product_minvoorraad = input("Geef een limiet van de minimum voorraad")
-                    new_product_maxvoorraad = input("Geef een limiet van de maximum voorraad")
+                    for x in modified_values:
+                        print(x)
 
-                    self.dal.modify_product(selected_to_change, new_product_name, new_product_leverancier,
-                                            new_product_inkoopprijs, new_product_voorraad,
-                                            new_product_minvoorraad, new_product_maxvoorraad)
+                    self.dal.modify_product(int(selected_to_change.productID), int(modified_values[0]), str(modified_values[1]),
+                                            float(modified_values[2]), int(modified_values[3]), int(modified_values[4]),
+                                            int(modified_values[5]))
                     pass
                 elif choice == 'd':
                     # TODO: netter maken

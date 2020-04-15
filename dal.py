@@ -13,8 +13,6 @@ class Dal:
     ## Het openen van een databaseconnectie
     @staticmethod
     def database_connect():
-        ##testje
-        # try:
             connection = mysql.connector.connect(
               host="localhost",
               database='casus_voorraden',
@@ -22,24 +20,13 @@ class Dal:
               passwd="root", auth_plugin='mysql_native_password'
             )
 
-            # if connection.is_connected():
-            #     db_Info = connection.get_server_info()
-            #     print("Connected to MySQL Server version ", db_Info)
-            #     cursor = connection.cursor()
-            #     cursor.execute("select database();")
-            #     record = cursor.fetchone()
-            #     print("You're connected to database: ", record)
-
             return connection
-
-        # except Error as e:
-        #     print("Error while connecting to MySQL", e)
 
     ## Het sluiten van een databaseconnectie als die open staat
     def database_disconnect(self, connection):
         if connection.is_connected():
             connection.close()
-            print("Database is closed")
+
 #endregion
 
 #region User methods
@@ -152,10 +139,14 @@ class Dal:
             print(str(counter) + ". " + str(company))
 
         if goal == "action":
-            chosen_company = int(input("Welke leverancier kies je? (nummer)"))
-            chosen_company = - 1
+            try:
+                chosen_company = int(input("Welke leverancier kies je? (nummer)"))
+                chosen_company = chosen_company - 1
 
-            return (result[chosen_company][0])
+                return (result[chosen_company][0])
+            except ValueError:
+
+                return ""
         else:
             print("niet gelukt")
             pass
@@ -325,7 +316,8 @@ class Dal:
         connection = self.database_connect()
 
         sql = "SELECT productID, productnaam, leveranciernaam, inkoopprijs, voorraadhoeveelheid, minimumvoorraad, maximumvoorraad FROM `product` " \
-              "JOIN leverancier on `product`.leverancierID = leverancier.leverancierID"
+           "JOIN leverancier on `product`.leverancierID = leverancier.leverancierID"
+
         cursor = connection.cursor()
         cursor.execute(sql)
         result = cursor.fetchall()
@@ -361,6 +353,29 @@ class Dal:
 
             return (result[chosen_product][0])
 
+        elif goal == "productaanpassen":
+            chosen_product = int(input("Welk product kies je? (nummer)"))
+            chosen_product = chosen_product - 1
+
+            connection = self.database_connect()
+
+            sql_leverancier = "SELECT leverancierID FROM leverancier WHERE leveranciernaam = %s"
+
+            cursor = connection.cursor()
+            value = (result[chosen_product][2],)
+            cursor.execute(sql_leverancier, value)
+            result2 = cursor.fetchall()
+
+            for tuple in result2:
+                for id in tuple:
+                    leverancier = id
+
+            product_to_change = Product(result[chosen_product][0], leverancier, result[chosen_product][1],
+                                        result[chosen_product][3], result[chosen_product][4],
+                                        result[chosen_product][5], result[chosen_product][6])
+
+            return product_to_change
+
         else:
            print("niet gelukt")
            pass
@@ -391,7 +406,7 @@ class Dal:
         connection.commit()
         print(cursor.rowcount, "record(s) deleted")
 
-    def modify_product(self, chosen_product, naam, leverancier, prijs, voorraad, min, max):
+    def modify_product(self, chosen_product, leverancier, naam, prijs, voorraad, min, max):
         connection = self.database_connect()
 
 

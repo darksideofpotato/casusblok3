@@ -3,6 +3,7 @@ from mysql.connector import Error
 from user import User
 from company import Company
 from product import Product
+from product_handler import Producthandler
 import datetime
 
 global connection
@@ -173,6 +174,18 @@ class Dal:
 
         print(cursor.rowcount, "record(s) affected")
 
+    def get_company_id_from_product(self, product):
+        connection = self.database_connect()
+
+        sql_leverancier = "SELECT leverancierID FROM product WHERE productID = %s"
+
+        cursor = connection.cursor()
+        value = (product,)
+        cursor.execute(sql_leverancier, value)
+        result2 = cursor.fetchall()
+
+        return result2
+
 #endregion
 
 #region Order methods
@@ -310,6 +323,7 @@ class Dal:
 #endregion
 
 #region Product methods
+############################################ Hier zijn de functies aangepast op de classes, zoals besproken ###############################
     def select_a_product(self, goal):
         # TODO: netter maken
         # TODO: weergave inkoopprijs
@@ -322,63 +336,15 @@ class Dal:
         cursor.execute(sql)
         result = cursor.fetchall()
 
-        print("De volgende producten zitten in het systeem:")
-        counter = 0
-        # TODO: company aanpassen
-        for company in result:
-            counter = counter + 1
-            print(str(counter) + ". " + str(company))
+        product_handler = Producthandler(result)
 
-        if goal == "placeorder":
-            list_of_items = {}
-            flag = True
-            while flag:
-                chosen_product = input("Welke product kies je? (nummer)")
-                print(chosen_product)
+        picked_product = product_handler.select_a_product(goal)
+        print(picked_product)
+        if goal == "productaanpassen":
+            result2 = self.get_company_id_from_product(picked_product[0])
+            products_to_change = product_handler.product_aanpassen_handler(result2, picked_product)
+            return products_to_change
 
-                if chosen_product != "":
-                    chosen_product = int(chosen_product) - 1
-
-                    hoeveelheid = input("Hoeveel stuks wil je bestellen?")
-                    list_of_items[(result[chosen_product][0])] = hoeveelheid
-
-                    print("item " + result[chosen_product][1] + " toegevoegd!")
-                else:
-                    flag = False
-                    return list_of_items
-
-        elif goal == "action":
-            chosen_product = int(input("Welk product kies je? (nummer)"))
-            chosen_product = chosen_product - 1
-
-            return (result[chosen_product][0])
-
-        elif goal == "productaanpassen":
-            chosen_product = int(input("Welk product kies je? (nummer)"))
-            chosen_product = chosen_product - 1
-
-            connection = self.database_connect()
-
-            sql_leverancier = "SELECT leverancierID FROM leverancier WHERE leveranciernaam = %s"
-
-            cursor = connection.cursor()
-            value = (result[chosen_product][2],)
-            cursor.execute(sql_leverancier, value)
-            result2 = cursor.fetchall()
-
-            for tuple in result2:
-                for id in tuple:
-                    leverancier = id
-
-            product_to_change = Product(result[chosen_product][0], leverancier, result[chosen_product][1],
-                                        result[chosen_product][3], result[chosen_product][4],
-                                        result[chosen_product][5], result[chosen_product][6])
-
-            return product_to_change
-
-        else:
-           print("niet gelukt")
-           pass
 
     def add_product(self, leverancier, productnaam, inkoopprijs, voorraad, min, max):
         connection = self.database_connect()
@@ -408,7 +374,6 @@ class Dal:
 
     def modify_product(self, chosen_product, leverancier, naam, prijs, voorraad, min, max):
         connection = self.database_connect()
-
 
         sql = "UPDATE product SET leverancierID = %s, productnaam = %s, inkoopprijs = %s, " \
               "voorraadhoeveelheid = %s, minimumvoorraad = %s, maximumvoorraad = %s WHERE productID = %s"

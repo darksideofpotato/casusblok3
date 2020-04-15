@@ -40,7 +40,6 @@ class Producthandler:
 
                         list_of_items[(self.result[chosen_product][0])] = hoeveelheid
                         print("item " + self.result[chosen_product][1] + " toegevoegd aan order!")
-                        flag = False
                     else:
                         print("Je probeert meer te bestellen dan de maximum voorraad toelaat. Probeer minder"
                               " te bestellen.")

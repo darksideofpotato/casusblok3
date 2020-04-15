@@ -7,21 +7,22 @@ class Producthandler:
     def select_a_product(self, goal):
         header_lst = ("ProductID", "Product", "Leverancier", "Inkoopprijs", "Voorraad", "Minimum", "Maximum")
         print("De volgende producten zitten in het systeem:")
-        counter = 0
+        #counter = 0
 
-        # Hij doet alleen het DB product raar formatten
-        for x in header_lst:
-            x = '{:15}'.format(x)
-            print(x, end=" ")
+        for header in header_lst:
+            header = '{:15}'.format(header)
+            print(header, end=" ")
         print("\n")
-        for y in self.result:
-            for x in y:
-                x = '{:15}'.format(str(x))
-                print(x, end=" ")
-        print("\n")
-        for product in self.result:
-            counter = counter + 1
-            print(str(counter) + ". " + str(product))
+        for productlijst in self.result:
+            for product in productlijst:
+                product = '{:15}'.format(str(product))
+                print(product, end=" ")
+            print("\n")
+
+
+        #for product in self.result:
+        #    counter = counter + 1
+        #    print(str(counter) + ". " + str(product))
 
         if goal == "placeorder":
             list_of_items = {}
@@ -39,12 +40,16 @@ class Producthandler:
                 else:
                     flag = False
                     return list_of_items
-
-        else:
+        elif goal == "productaanpassen":
             chosen_product = int(input("Welk product kies je? (nummer)"))
             chosen_product = chosen_product - 1
-
             return (self.result[chosen_product])
+
+        else:
+            input("Druk op 'Enter' om terug te gaan naar het menu")
+
+
+
 
     def product_aanpassen_handler(self, company, chosen_product):
         for tuple in company:

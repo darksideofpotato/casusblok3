@@ -354,6 +354,8 @@ class Dal:
             result2 = self.get_company_id_from_product(picked_product[0])
             products_to_change = product_handler.product_aanpassen_handler(result2, picked_product)
             return products_to_change
+        else:
+            return picked_product
 
 
     def add_product(self, leverancier, productnaam, inkoopprijs, voorraad, min, max):
@@ -426,6 +428,20 @@ class Dal:
             else:
                 counter = counter + 1
         pass
+
+    def get_product_by_id(self, id):
+        connection = self.database_connect()
+
+        sql = "SELECT * FROM product WHERE productID = %s"
+        value = (id,)
+        cursor = connection.cursor()
+        cursor.execute(sql, value)
+        result = cursor.fetchall()
+
+        got_product = Product(result[0][0], result[0][1], result[0][2], result[0][3], result[0][4],
+                              result[0][5], result[0][6])
+
+        return got_product
 #endregion
 
 

@@ -54,13 +54,14 @@ class Dal:
                 self.user = Admin(result[0][0], result[0][1], result[0][2])
             elif result[0][2] == 'employee':
                 self.user = Employee(result[0][0], result[0][1], result[0][2])
+
+            self.database_disconnect(connection)
             return self.user
 
         else:
             print("Deze user bestaat niet, of je hebt een typfout gemaakt. Probeer het nog een keer.")
             self.database_disconnect(connection)
             return False
-
 
     def add_user(self, username, role):
         connection = self.database_connect()
@@ -71,6 +72,7 @@ class Dal:
         cursor.execute(sql, values)
         connection.commit()
 
+        self.database_disconnect(connection)
 
     def select_a_user(self, goal):
         connection = self.database_connect()
@@ -95,6 +97,7 @@ class Dal:
             print("niet gelukt")
             pass
 
+        self.database_disconnect(connection)
 
     def delete_user(self, chosen_user_username):
         connection = self.database_connect()
@@ -106,17 +109,18 @@ class Dal:
         connection.commit()
         print(cursor.rowcount, "record(s) deleted")
 
+        self.database_disconnect(connection)
 
     def modify_user(self, chosen_user, new_username, new_role):
         connection = self.database_connect()
 
-        sql = "UPDATE gebruiker SET gebruikersnaam = %s, rol = %s WHERE gebruikersnaam = %s" # Hij maakt nieuwe user aan ipv oude user aan te passen
+        sql = "UPDATE gebruiker SET gebruikersnaam = %s, rol = %s WHERE gebruikersnaam = %s"
         values = (new_username, new_role, chosen_user)
         cursor = connection.cursor()
         cursor.execute(sql, values)
         connection.commit()
 
-        print(cursor.rowcount, "record(s) affected")
+        self.database_disconnect(connection)
 
 #endregion
 
@@ -130,6 +134,8 @@ class Dal:
         cursor = connection.cursor()
         cursor.execute(sql, values)
         connection.commit()
+
+        self.database_disconnect(connection)
 
     def select_a_company(self, goal):
         connection = self.database_connect()
@@ -158,6 +164,8 @@ class Dal:
             print("niet gelukt")
             pass
 
+        self.database_disconnect(connection)
+
     def delete_company(self, chosen_company):
         connection = self.database_connect()
 
@@ -167,6 +175,8 @@ class Dal:
         cursor.execute(sql, value)
         connection.commit()
         print(cursor.rowcount, "record(s) deleted")
+
+        self.database_disconnect(connection)
 
     def modify_company(self, chosen_company, new_name, new_adres, new_email, new_levertijd):
         connection = self.database_connect()
@@ -178,7 +188,7 @@ class Dal:
         cursor.execute(sql, values)
         connection.commit()
 
-        print(cursor.rowcount, "record(s) affected")
+        self.database_disconnect(connection)
 
     def get_company_id_from_product(self, product):
         connection = self.database_connect()
@@ -190,6 +200,7 @@ class Dal:
         cursor.execute(sql_leverancier, value)
         result2 = cursor.fetchall()
 
+        self.database_disconnect(connection)
         return result2
 
 #endregion
@@ -224,9 +235,7 @@ class Dal:
         else:
            pass
 
-    def auto_order(self):
-        # TODO: maken
-        pass
+        self.database_disconnect(connection)
 
     def prepare_order(self):
         # TODO: netter maken
@@ -245,6 +254,7 @@ class Dal:
 
         new_order_id = cursor.lastrowid
 
+        self.database_disconnect(connection)
         return new_order_id
 
     def place_order(self, order_id, product_id, quantity):
@@ -257,6 +267,9 @@ class Dal:
         cursor = connection.cursor()
         cursor.execute(sql, values)
         connection.commit()
+
+
+        self.database_disconnect(connection)
 
     def modify_order(self, order_id, what_to_change, new_value):
         connection = self.database_connect()
@@ -273,7 +286,7 @@ class Dal:
         cursor.execute(sql, values)
         connection.commit()
 
-        print(cursor.rowcount, "record(s) affected")
+        self.database_disconnect(connection)
 
     def select_current_order_products(self, goal, orderID):
         # TODO: netter maken
@@ -301,6 +314,8 @@ class Dal:
         else:
             pass
 
+        self.database_disconnect(connection)
+
     def delete_order(self, chosen_order):
         self.delete_order_product(chosen_order, "null")
         # TODO: netter maken
@@ -311,7 +326,8 @@ class Dal:
         cursor = connection.cursor()
         cursor.execute(sql, value)
         connection.commit()
-        print(cursor.rowcount, "record(s) deleted")
+
+        self.database_disconnect(connection)
 
     def delete_order_product(self, order, product):
         #TODO: netter maken
@@ -325,7 +341,8 @@ class Dal:
         cursor = connection.cursor()
         cursor.execute(sql, value)
         connection.commit()
-        print(cursor.rowcount, "record(s) deleted")
+
+        self.database_disconnect(connection)
 #endregion
 
 #region Product methods
@@ -334,7 +351,6 @@ class Dal:
         # TODO: netter maken
         # TODO: weergave inkoopprijs
         connection = self.database_connect()
-        header_lst = ("ProductID", "Product", "Leverancier", "Inkoopprijs", "Voorraad", "Minimum", "Maximum")
 
         sql = "SELECT productID, productnaam, leveranciernaam, inkoopprijs, voorraadhoeveelheid, minimumvoorraad, maximumvoorraad FROM `product` " \
            "JOIN leverancier on `product`.leverancierID = leverancier.leverancierID"
@@ -347,14 +363,14 @@ class Dal:
 
         picked_product = product_handler.select_a_product(goal)
 
-        # Hier stond print(picked_product)
         if goal == "productaanpassen":
             result2 = self.get_company_id_from_product(picked_product[0])
             products_to_change = product_handler.product_aanpassen_handler(result2, picked_product)
+            self.database_disconnect(connection)
             return products_to_change
         else:
+            self.database_disconnect(connection)
             return picked_product
-
 
     def add_product(self, leverancier, productnaam, inkoopprijs, voorraad, min, max):
         connection = self.database_connect()
@@ -366,6 +382,8 @@ class Dal:
         cursor = connection.cursor()
         cursor.execute(sql, values)
         connection.commit()
+
+        self.database_disconnect(connection)
 
     def delete_product(self, chosen_product):
         # Er is voor gekozen om de koppelingen uit andere tabellen niet te verwijderen. Dit omdat er nog
@@ -380,7 +398,7 @@ class Dal:
         cursor = connection.cursor()
         cursor.execute(sql, value)
         connection.commit()
-        print(cursor.rowcount, "record(s) deleted")
+        self.database_disconnect(connection)
 
     def modify_product(self, chosen_product, leverancier, naam, prijs, voorraad, min, max):
         connection = self.database_connect()
@@ -393,7 +411,7 @@ class Dal:
         cursor.execute(sql, values)
         connection.commit()
 
-        print(cursor.rowcount, "record(s) affected")
+        self.database_disconnect(connection)
 
     def check_all_products(self):
         # Deze functie controleerd alle producten in de database of er iets nieuws bijbesteld moet worden.
@@ -426,6 +444,7 @@ class Dal:
             else:
                 counter = counter + 1
         pass
+        self.database_disconnect(connection)
 
     def get_product_by_id(self, id):
         connection = self.database_connect()
@@ -439,6 +458,7 @@ class Dal:
         got_product = Product(result[0][0], result[0][1], result[0][2], result[0][3], result[0][4],
                               result[0][5], result[0][6])
 
+        self.database_disconnect(connection)
         return got_product
 #endregion
 

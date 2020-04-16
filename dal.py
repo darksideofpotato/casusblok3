@@ -5,6 +5,8 @@ from company import Company
 from product import Product
 from product_handler import Producthandler
 import datetime
+from admin import Admin
+from employee import Employee
 
 global connection
 
@@ -18,7 +20,7 @@ class Dal:
               host="localhost",
               database='casus_voorraden',
               user="root",
-              passwd="GeleBanaan043", auth_plugin='mysql_native_password'
+              passwd="root", auth_plugin='mysql_native_password'
             )
 
             return connection
@@ -47,7 +49,11 @@ class Dal:
 
             print("Welkom, " + username.title())
             self.database_disconnect(connection)
-            self.user = User(result[0][0], result[0][1], result[0][2])
+
+            if result[0][2] == 'admin':
+                self.user = Admin(result[0][0], result[0][1], result[0][2])
+            elif result[0][2] == 'employee':
+                self.user = Employee(result[0][0], result[0][1], result[0][2])
             return self.user
 
         else:

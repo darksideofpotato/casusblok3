@@ -37,7 +37,6 @@ class Producthandler:
                     hoeveelheid = input("Hoeveel stuks wil je bestellen? (max " + str(allowed_to_order) + ".)")
 
                     if int(hoeveelheid) <= int(allowed_to_order):
-
                         list_of_items[(self.result[chosen_product][0])] = hoeveelheid
                         print("item " + self.result[chosen_product][1] + " toegevoegd aan order!")
                     else:

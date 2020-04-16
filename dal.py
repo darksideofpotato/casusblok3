@@ -21,7 +21,7 @@ class Dal:
               host="localhost",
               database='casus_voorraden',
               user="root",
-              passwd="GeleBanaan043", auth_plugin='mysql_native_password'
+              passwd="root", auth_plugin='mysql_native_password'
             )
 
             return connection
@@ -186,7 +186,6 @@ class Dal:
         cursor = connection.cursor()
         cursor.execute(sql, value)
         connection.commit()
-        print(cursor.rowcount, "record(s) deleted")
 
         self.database_disconnect(connection)
 
@@ -468,7 +467,7 @@ class Dal:
                 print("daar moeten " + str(outcome_check) + " van worden bijbesteld")
                 new_order_id = self.prepare_order()
                 self.place_order(new_order_id, product[0], outcome_check)
-                self.modify_product(product[0], product[1], product[2], product[3], product[6], product[5], product[6])
+                self.modify_product(product[0], new_order_id, product[2], product[3], product[6], product[5], product[6])
                 pass
             else:
                 counter = counter + 1

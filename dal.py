@@ -12,8 +12,9 @@ global connection
 
 class Dal:
 
-#region Database
-    ## Het openen van een databaseconnectie
+# region Database
+
+    # Het openen van een databaseconnectie
     @staticmethod
     def database_connect():
             connection = mysql.connector.connect(
@@ -33,7 +34,6 @@ class Dal:
 #endregion
 
 #region User methods
-
 
     def login_user(self, username):
         connection = self.database_connect()

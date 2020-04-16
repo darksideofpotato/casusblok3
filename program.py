@@ -54,42 +54,55 @@ class Program:
 
                 ## Het aamaken van een nieuwe gebruiker
                 elif choice == 'a':
-                    new_user_username = input ("Wat wordt de username van de nieuwe user?")
-                    new_user_role = input("Is het een admin(a) of employee(e)?")
-                    if new_user_role == 'a':
-                        new_user_role = 'admin'
-                    elif new_user_role == 'e':
-                        new_user_role = 'employee'
+                    if self.user_object.rol == "admin":
+                            new_user_username = input ("Wat wordt de username van de nieuwe user?")
+                            new_user_role = input("Is het een admin(a) of employee(e)?")
+                            if new_user_role == 'a':
+                                new_user_role = 'admin'
+                            elif new_user_role == 'e':
+                                new_user_role = 'employee'
 
-                    self.dal.add_user(new_user_username,new_user_role)
+                            self.dal.add_user(new_user_username,new_user_role)
 
-                    print("\nDe nieuwe user " + new_user_username + " is toegevoegd!")
-                    pass
+                            print("\nDe nieuwe user " + new_user_username + " is toegevoegd!")
+                            pass
+                    else:
+                        print("Je hebt niet de rechten om deze actie uit te voeren.")
+                        pass
 
                 ## Het verwijderen van een user
                 elif choice == 'd':
-                    selected_to_delete = self.dal.select_a_user('action')
-                    confirm_delete = input("Je hebt gekozen om " + selected_to_delete + " te verwijderen. Weet je dit zeker? (y/n)")
-                    if confirm_delete == "y":
-                        self.dal.delete_user(selected_to_delete)
-                    else:
+                    if self.user_object.rol == "admin":
+                        selected_to_delete = self.dal.select_a_user('action')
+                        confirm_delete = input("Je hebt gekozen om " + selected_to_delete + " te verwijderen. Weet je dit zeker? (y/n)")
+                        if confirm_delete == "y":
+                            self.dal.delete_user(selected_to_delete)
+                        else:
+                            pass
                         pass
-                    pass
+                    else:
+                        print("Je hebt niet de rechten om deze actie uit te voeren.")
+                        pass
 
                 ## Het kiezen en aanpassen van een user
                 elif choice == 'c':
-                    selected_to_change = self.dal.select_a_user('action')
+                    if self.user_object.rol == "admin":
+                        selected_to_change = self.dal.select_a_user('action')
 
-                    new_user_username = input("Wat wordt de nieuwe username?")
-                    new_user_role = input("Is het een admin(a) of employee(e)?")
-                    if new_user_role == 'a':
-                        new_user_role = 'admin'
-                    elif new_user_role == 'e':
-                        new_user_role = 'employee'
+                        new_user_username = input("Wat wordt de nieuwe username?")
+                        new_user_role = input("Is het een admin(a) of employee(e)?")
+                        if new_user_role == 'a':
+                            new_user_role = 'admin'
+                        elif new_user_role == 'e':
+                            new_user_role = 'employee'
 
-                    self.dal.modify_user(selected_to_change, new_user_username, new_user_role)
+                        self.dal.modify_user(selected_to_change, new_user_username, new_user_role)
 
-                    pass
+                        pass
+                    else:
+                        print("Je hebt niet de rechten om deze actie uit te voeren.")
+                        pass
+
                 elif choice == 'm':
                     self.menu()
                 elif choice == 'e':

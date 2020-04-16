@@ -130,7 +130,6 @@ class Program:
             # endregion
 
             # region Leverancier options
-            # TODO: Checken of alle menu dingen kloppen met de use cases
             elif choice == 'l':
                 print(
                     "Kies 'a' om een leverancier toe te voegen\n"
@@ -142,15 +141,41 @@ class Program:
                 )
                 choice = input()
                 if choice == 'a':
-                    new_company_name = input("Wat is de naam van de leverancier?")
-                    new_company_adres = input("Wat is het adres van de leverancier?")
-                    new_company_email = input("Wat is het emailadres van de leverancier?")
-                    new_company_levertijd = input("Wat is de levertijd van de leverancier?")
+                    # TODO: mogelijk maken om het proces dat een leverancier toevoegen af te kunnen breken
+                    flag2 = True
+                    while flag2:
+                        new_company_name = input("Wat is de naam van de leverancier?")
+                        if new_company_name == "":
+                            print("Je hebt een lege waarde ingevuld, probeer het nog een keer")
+                        else:
+                            flag2 = False
+                    flag2 = True
+                    while flag2:
+                        new_company_adres = input("Wat is het adres van de leverancier?")
+                        if new_company_adres == "" or new_company_adres.isdigit():
+                            print("Je hebt een lege waarde of getal ingevuld, probeer het nog een keer")
+                        else:
+                            flag2 = False
+                    flag2 = True
+                    while flag2:
+                        new_company_email = input("Wat is het emailadres van de leverancier?")
+                        if new_company_email == "" or new_company_email.isdigit():
+                            print("Je hebt een lege waarde of getal ingevuld, probeer het nog een keer")
+                        else:
+                            flag2 = False
+                    flag2 = True
+                    while flag2:
+                        new_company_levertijd = input("Wat is de levertijd van de leverancier?")
+                        if new_company_levertijd == "" or new_company_levertijd.isdigit():
+                            print("Je hebt een lege waarde of getal ingevuld, probeer het nog een keer")
+                        else:
+                            flag2 = False
 
                     self.dal.add_company(new_company_name, new_company_adres, new_company_email, new_company_levertijd)
 
                     print("\nDe nieuwe leverancier " + new_company_name + " is toegevoegd!")
                     pass
+
                 elif choice == 'd':
                     selected_to_delete = self.dal.select_a_company('action')
                     confirm_delete = input(
@@ -160,6 +185,7 @@ class Program:
                     else:
                         pass
                     pass
+
                 elif choice == 'c':
                     # TODO: beter maken
                     selected_to_change = self.dal.select_a_company('action')

@@ -125,7 +125,6 @@ class Dal:
         self.database_disconnect(connection)
 
     # De gegevens van een user worden via de functie aangepast
-    # TODO: doen via user class zodat niet alle gegevens opnieuw ingevuld hoeven te worden
     def modify_user(self, chosen_user, new_username, new_role):
         connection = self.database_connect()
 

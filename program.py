@@ -1,5 +1,5 @@
 from dal import Dal
-
+import time
 
 class Program:
     # TODO: kijken of er meerdere classes gebruikt kunnen worden vanuit de dal class
@@ -115,7 +115,7 @@ class Program:
                             print("Je hebt een foutieve waarde ingevoerd. Rol blijft onveranderd")
                             new_user_role = selected_to_change.rol
 
-                        self.dal.modify_user(selected_to_change.username, new_user_username, new_user_role)
+                        self.dal.modify_user(selected_to_change.userID, new_user_username, new_user_role)
 
                         pass
                     else:
@@ -187,19 +187,31 @@ class Program:
                     pass
 
                 elif choice == 'c':
-                    # TODO: beter maken
-                    selected_to_change = self.dal.select_a_company('action')
+                    selected_to_change = self.dal.select_a_company('change')
 
                     new_company_name = input("Wat is de naam van de leverancier?")
+                    if new_company_name == "":
+                        print("De leveranciernaam wordt niet aangepast.")
+                        new_company_name = selected_to_change.leveranciernaam
                     new_company_adres = input("Wat is het adres van de leverancier?")
+                    if new_company_adres == "" or new_company_adres.isdigit():
+                        print("het adres wordt niet aangepast.")
+                        new_company_adres = selected_to_change.leverancieradres
                     new_company_email = input("Wat is het emailadres van de leverancier?")
+                    if new_company_email == "" or new_company_email.isdigit():
+                        print("Het email adres wordt niet aangepast.")
+                        new_company_email = selected_to_change.leverancieremail
                     new_company_levertijd = input("Wat is de levertijd van de leverancier?")
+                    if new_company_levertijd == "" or new_company_levertijd.isdigit():
+                        print("De levertijd van het bedrijf wordt niet aangepast.")
+                        new_company_levertijd = selected_to_change.levertijd
 
-
-                    self.dal.modify_company(selected_to_change, new_company_name, new_company_adres, new_company_email, new_company_levertijd)
+                    self.dal.modify_company(selected_to_change.leverancierID, new_company_name, new_company_adres, new_company_email, new_company_levertijd)
                     pass
+
                 elif choice == 'all':
                     self.dal.select_a_company('show')
+                    input("Druk op enter om terug naar het menu te gaan.")
                     pass
                 elif choice == 'm':
                     self.menu()

@@ -128,7 +128,7 @@ class Dal:
     def modify_user(self, chosen_user, new_username, new_role):
         connection = self.database_connect()
 
-        sql = "UPDATE gebruiker SET gebruikersnaam = %s, rol = %s WHERE gebruikersnaam = %s"
+        sql = "UPDATE gebruiker SET gebruikersnaam = %s, rol = %s WHERE userID = %s"
         values = (new_username, new_role, chosen_user)
         cursor = connection.cursor()
         cursor.execute(sql, values)
@@ -179,6 +179,14 @@ class Dal:
             except ValueError:
 
                 return ""
+        elif goal == "change":
+            chosen_company = int(input("Welke leverancier kies je? (nummer)"))
+            chosen_company = chosen_company - 1
+
+            leverancier = Company(result[chosen_company][0], result[chosen_company][1], result[chosen_company][2],
+                                  result[chosen_company][3], result[chosen_company][4])
+
+            return leverancier
         else:
             print("niet gelukt")
             pass
@@ -203,7 +211,7 @@ class Dal:
         connection = self.database_connect()
 
         sql = "UPDATE leverancier SET leveranciernaam = %s, leverancieradres = %s, " \
-              "leverancieremail = %s, levertijd = %s WHERE leveranciernaam = %s"
+              "leverancieremail = %s, levertijd = %s WHERE leverancierID = %s"
         values = (new_name, new_adres, new_email, new_levertijd, chosen_company)
         cursor = connection.cursor()
         cursor.execute(sql, values)

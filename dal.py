@@ -238,7 +238,13 @@ class Dal:
         counter = 0
         for order in result:
             counter = counter + 1
-            print(str(counter) + ". " + str(order))
+            print(str(counter) + ". ", end= " ")
+            for x in order:
+                x = '{:20}'.format(str(x))
+                print(x, end= " ")
+            print("\n")
+
+
 
         # TODO: keuze kunnen maken tussen statussen van orders
         # TODO: Bij delete alleen orders laten zien die in behandeling zijn

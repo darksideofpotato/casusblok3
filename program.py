@@ -198,16 +198,15 @@ class Program:
                     selected_to_change = self.dal.select_an_order('action')
 
                     what_to_change = ""
-                    while what_to_change != "1":
+                    while what_to_change != "1" and what_to_change != "2":
                         what_to_change = input(str("""Wat wil je aanpassen aan deze order?
 [1] Status
+[2] Producten
 > """))
-                    if what_to_change == "1":
-                        what_to_change = "status"
 
                     #TODO: Toevoegen welke keuzes je hebt
 
-                    if what_to_change == "status":
+                    if what_to_change == "1":
                         print("'1.' In behandeling\n"
                               "'2.' Betaald\n"
                               "'3.' Verzonden\n"
@@ -235,7 +234,7 @@ class Program:
 
                     ## het aanpassen van de producten van een order
                     #TODO: optie om extra producten toe te voegen zolang order nog in behandeling is
-                    elif what_to_change == "producten":
+                    elif what_to_change == "2":
                         chosen_product_and_order = self.dal.select_current_order_products("action", selected_to_change)
                         #TODO: print bijzetten
                         choice = input("Wat wil je met dit product doen?")

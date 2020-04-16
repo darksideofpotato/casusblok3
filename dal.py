@@ -376,7 +376,10 @@ class Dal:
 #endregion
 
 #region Product methods
-############################################ Hier zijn de functies aangepast op de classes, zoals besproken ###############################
+############################################ @Miel Hier zijn de functies zover als het lukte aangepast op de classes, zoals besproken ###############################
+
+    # De functie die producten kan weergeven en het mogelijk maakt om een product uit te kiezen. Bijvoorbeeld om
+    # toe te voegen aan een order, te verwijderen of te wijzigen.
     def select_a_product(self, goal):
         # TODO: netter maken
         # TODO: weergave inkoopprijs
@@ -402,6 +405,7 @@ class Dal:
             self.database_disconnect(connection)
             return picked_product
 
+    # De functie om een nieuw product toe te voegen aan te database
     def add_product(self, leverancier, productnaam, inkoopprijs, voorraad, min, max):
         connection = self.database_connect()
 
@@ -415,6 +419,7 @@ class Dal:
 
         self.database_disconnect(connection)
 
+    # De functie om een product te verwijderen
     def delete_product(self, chosen_product):
         # Er is voor gekozen om de koppelingen uit andere tabellen niet te verwijderen. Dit omdat er nog
         # orders kunnen lopen, en het bedrijf deze appart wil cancelen indien nodig. Ook kan het het geval zijn
@@ -430,6 +435,7 @@ class Dal:
         connection.commit()
         self.database_disconnect(connection)
 
+    # De functie om een product aan te passen
     def modify_product(self, chosen_product, leverancier, naam, prijs, voorraad, min, max):
         connection = self.database_connect()
 
@@ -443,10 +449,9 @@ class Dal:
 
         self.database_disconnect(connection)
 
+    # Deze functie controleerd alle producten in de database of er iets nieuws bijbesteld moet worden.
+    # Is dit het geval, dan zal een product bijbesteld worden.
     def check_all_products(self):
-        # Deze functie controleerd alle producten in de database of er iets nieuws bijbesteld moet worden.
-        # Is dit het geval, dan zal een product bijbesteld worden.
-
         connection = self.database_connect()
 
         sql = "SELECT productID, productnaam, leverancierID, inkoopprijs, voorraadhoeveelheid, minimumvoorraad, maximumvoorraad FROM `product` "
@@ -474,6 +479,7 @@ class Dal:
         pass
         self.database_disconnect(connection)
 
+    # Een functie om een object te maken van product op basis van het productID.
     def get_product_by_id(self, id):
         connection = self.database_connect()
 

@@ -11,7 +11,3 @@ class User:
 
     def get_user_id(self):
         return self.userid
-
-    #method om een product te bestellen
-    def order_product(self):
-        pass

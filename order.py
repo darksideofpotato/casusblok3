@@ -1,12 +1,10 @@
 class Order:
-    def __init__(self, product, amount, company, status, date):
-        self.product = product
-        self.amount = amount
-        self.company = company
-        self.status = status
+    def __init__(self, orderID, date, status, userID, productID, amount):
+        self.orderID = orderID
         self.date = date
+        self.status = status
+        self.userID = userID
+        self.productID = productID
+        self.amount = amount
 
-    ###methods
 
-    def show_orders(self):
-        pass

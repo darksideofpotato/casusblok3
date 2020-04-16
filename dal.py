@@ -52,9 +52,9 @@ class Dal:
             print("Welkom, " + username.title())
             self.database_disconnect(connection)
 
-            if result[0][2] == 'admin':
+            if result[0][2] == 'admin' or result[0][2] == 'Admin':
                 self.user = Admin(result[0][0], result[0][1], result[0][2])
-            elif result[0][2] == 'employee':
+            elif result[0][2] == 'employee' or result[0][2] == 'Employee':
                 self.user = Employee(result[0][0], result[0][1], result[0][2])
 
             self.database_disconnect(connection)

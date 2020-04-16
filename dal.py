@@ -26,7 +26,7 @@ class Dal:
 
             return connection
 
-    ## Het sluiten van een databaseconnectie als die open staat
+    # Het sluiten van een databaseconnectie als die open staat
     def database_disconnect(self, connection):
         if connection.is_connected():
             connection.close()
@@ -35,6 +35,8 @@ class Dal:
 
 #region User methods
 
+    # De login functie. Logt in op basis van de gebruikersnaam, en maakt op basis van de rol een object
+    # van admin of employee aan.
     def login_user(self, username):
         connection = self.database_connect()
 
@@ -58,11 +60,14 @@ class Dal:
             self.database_disconnect(connection)
             return self.user
 
+        # Als een user niet in de database voorkomt, wordt een errormessage gegevens en kan de gebruiker nogmaals
+        # proberen in te loggen
         else:
             print("Deze user bestaat niet, of je hebt een typfout gemaakt. Probeer het nog een keer.")
             self.database_disconnect(connection)
             return False
 
+    # Functie om een user toe te voegen. Gebruikt de gegevens die in het menu worden ingevuld.
     def add_user(self, username, role):
         connection = self.database_connect()
 
@@ -74,6 +79,8 @@ class Dal:
 
         self.database_disconnect(connection)
 
+    # Via deze functie kunnen alle users worden weergeven, en indien nodig kan er ook een uitgekozen worden voor
+    # een bewerking (modify of delete)
     def select_a_user(self, goal):
         connection = self.database_connect()
 
@@ -93,12 +100,10 @@ class Dal:
             chosen_user = chosen_user - 1
 
             return (result[chosen_user][0])
-        else:
-            print("niet gelukt")
-            pass
 
         self.database_disconnect(connection)
 
+    # Een user kan worden gedelete via dezee functie
     def delete_user(self, chosen_user_username):
         connection = self.database_connect()
 
@@ -107,10 +112,11 @@ class Dal:
         cursor = connection.cursor()
         cursor.execute(sql, value)
         connection.commit()
-        print(cursor.rowcount, "record(s) deleted")
 
         self.database_disconnect(connection)
 
+    # De gegevens van een user worden via de functie aangepast
+    # TODO: doen via user class zodat niet alle gegevens opnieuw ingevuld hoeven te worden
     def modify_user(self, chosen_user, new_username, new_role):
         connection = self.database_connect()
 
@@ -125,6 +131,8 @@ class Dal:
 #endregion
 
 #region Company methods
+
+    # De functie om een nieuwe leverancier toe te voegen. De waardes worden meegegeven vanuit het menu
     def add_company(self, naam, adres, email, levertijd):
         connection = self.database_connect()
 
@@ -137,6 +145,9 @@ class Dal:
 
         self.database_disconnect(connection)
 
+    # De functie om alle leveranciers te weergeven, en om een leverancier uit te kiezen, om bijvoorbeeld
+    # te verwijderen of om de gegevens van aan te passen. Er wordt gebruikt van de parameter 'goal' om dit
+    # verschil aan te geven.
     def select_a_company(self, goal):
         connection = self.database_connect()
 
@@ -166,6 +177,7 @@ class Dal:
 
         self.database_disconnect(connection)
 
+    # Functie om een leverancier te verwijderen
     def delete_company(self, chosen_company):
         connection = self.database_connect()
 
@@ -178,6 +190,8 @@ class Dal:
 
         self.database_disconnect(connection)
 
+    # Functie om de gegevens van een leverancier aan te passen
+    # TODO: doen via leverancier class zodat niet alle gegevens opnieuw ingevuld hoeven te worden
     def modify_company(self, chosen_company, new_name, new_adres, new_email, new_levertijd):
         connection = self.database_connect()
 
@@ -190,6 +204,7 @@ class Dal:
 
         self.database_disconnect(connection)
 
+    # Een functie specifiek om het ID van een leverancier op te vragen, op basis van een productID.
     def get_company_id_from_product(self, product):
         connection = self.database_connect()
 
@@ -207,6 +222,8 @@ class Dal:
 
 #region Order methods
 
+    # Functie om alle orders te kunnen laten zien, en om een order uit te kiezen (om aan te passen of te annuleren)
+    # TODO: orderproducten weergeven (functie staat iets naar beneden)
     def select_an_order(self, goal):
         # TODO: string formatting en dergelijke
         connection = self.database_connect()
@@ -224,7 +241,6 @@ class Dal:
             print(str(counter) + ". " + str(order))
 
         # TODO: keuze kunnen maken tussen statussen van orders
-        # TODO: laten zien van producten binnen een order
         # TODO: Bij delete alleen orders laten zien die in behandeling zijn
 
         if goal == "action":
@@ -237,6 +253,8 @@ class Dal:
 
         self.database_disconnect(connection)
 
+    # Functie die een order zelf aanmaakt. Deze functie is een voorbereiding op het aanmaken van
+    # de orderproducten. Daarom wordt de orderID gereturned.
     def prepare_order(self):
         # TODO: netter maken
         userid = self.user.get_user_id()
@@ -257,6 +275,8 @@ class Dal:
         self.database_disconnect(connection)
         return new_order_id
 
+    # Binnen deze functie wordt voor het aanmaken van een order het orderproduct ingevuld.
+    # Dit op basis van het orderID van de vorige functie, en de productID's die uitgekozen zijn.
     def place_order(self, order_id, product_id, quantity):
         # TODO: netter maken
         connection = self.database_connect()
@@ -271,6 +291,8 @@ class Dal:
 
         self.database_disconnect(connection)
 
+    # Functie om een order aan te passen
+    # TODO: doen via classes zodat niet alle gegevens opnieuw ingevuld hoeven te worden
     def modify_order(self, order_id, what_to_change, new_value):
         connection = self.database_connect()
         # TODO: input check
@@ -288,6 +310,7 @@ class Dal:
 
         self.database_disconnect(connection)
 
+    # Functie om een orderproduct te selecteren op basis van een orderID
     def select_current_order_products(self, goal, orderID):
         # TODO: netter maken
         connection = self.database_connect()
@@ -316,6 +339,7 @@ class Dal:
 
         self.database_disconnect(connection)
 
+    # Functie om een order te verwijderen
     def delete_order(self, chosen_order):
         self.delete_order_product(chosen_order, "null")
         # TODO: netter maken
@@ -329,6 +353,7 @@ class Dal:
 
         self.database_disconnect(connection)
 
+    # Wanneer een order wordt verwijderd, worden via deze functie ook automatisch de orderproducten verwijderd.
     def delete_order_product(self, order, product):
         #TODO: netter maken
         connection = self.database_connect()
@@ -433,8 +458,6 @@ class Dal:
             if outcome_check != None:
                 #TODO: zorgen dat bij meerdere producten van een leverancier in een keer niet meerdere order
                 # ID's worden gemaakt
-                #TODO: nagaan of het handig is dat het product gelijk wordt geupdate, of dat daar
-                # iets voor moet komen op basis van status van de order
 
                 print("daar moeten " + str(outcome_check) + " van worden bijbesteld")
                 new_order_id = self.prepare_order()

@@ -2,7 +2,6 @@ from dal import Dal
 
 
 class Program:
-    # TODO: rollen toevoegen
     # TODO: kijken of er meerdere classes gebruikt kunnen worden vanuit de dal class
     # TODO: automatisch orders plaatsen afwerken
 

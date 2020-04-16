@@ -164,7 +164,7 @@ class Program:
 
             # region Order options
             # TODO: Checken of alle menu dingen kloppen met de use cases
-            if choice == 'o':
+            elif choice == 'o':
                 print(
                     "Kies 'all' om alle orders te bekijken\n"
                     "Kies 'a' om een order handmatig te plaatsen\n"
@@ -197,7 +197,14 @@ class Program:
                     ## Het aanpassen van de status
                     selected_to_change = self.dal.select_an_order('action')
 
-                    what_to_change = input("Wat wil je aanpassen aan deze order?")
+                    what_to_change = ""
+                    while what_to_change != "1":
+                        what_to_change = input(str("""Wat wil je aanpassen aan deze order?
+[1] Status
+> """))
+                    if what_to_change == "1":
+                        what_to_change = "status"
+
                     #TODO: Toevoegen welke keuzes je hebt
 
                     if what_to_change == "status":
@@ -264,7 +271,7 @@ class Program:
 
             #region Product options
             # TODO: Checken of alle menu dingen kloppen met de use cases
-            if choice == 'p':
+            elif choice == 'p':
                 print(
                     "Kies 'all' om alle producten te bekijken\n"
                     "Kies 'a' om een product toe te voegen\n"
@@ -280,11 +287,19 @@ class Program:
                 elif choice == 'a':
                     #TODO: input checks
                     new_product_name = input("Wat is de naam van het nieuwe product?")
+                    while new_product_name == "":
+                        new_product_name = input("Geen naam ingevoerd, probeer het opnieuw:")
                     new_product_leverancier = self.dal.select_a_company("action")
                     new_product_inkoopprijs = input("Wat is de inkoopprijs?")
+                    while int(new_product_inkoopprijs) <= 0:
+                        new_product_inkoopprijs = input("Inkoopprijs kan niet kleiner of gelijk zijn aan 0: ")
                     new_product_voorraad = 0
                     new_product_minvoorraad = input("Geef een limiet van de minimum voorraad")
+                    while int(new_product_minvoorraad) < 0:
+                        new_product_minvoorraad = input("Minimum voorraad kan niet kleiner zijn dan 0: ")
                     new_product_maxvoorraad = input("Geef een limiet van de maximum voorraad")
+                    while int(new_product_maxvoorraad) < int(new_product_minvoorraad):
+                        new_product_maxvoorraad = input(f"Maximum voorraad kan niet kleiner zijn dan minimum voorraad ({new_product_minvoorraad}):")
 
                     self.dal.add_product(new_product_leverancier, new_product_name, new_product_inkoopprijs,
                                          new_product_voorraad, new_product_minvoorraad, new_product_maxvoorraad)
@@ -323,9 +338,9 @@ class Program:
                 pass
             #endregion
 
-            if choice == 'lo':
+            elif choice == 'lo':
                 Program()
-            if choice == 'e':
+            elif choice == 'e':
                 exit()
 
             ############# Test voor het automatisch bestellen van een product

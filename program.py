@@ -4,6 +4,7 @@ import time
 class Program:
     # TODO: kijken of er meerdere classes gebruikt kunnen worden vanuit de dal class
     # TODO: automatisch orders plaatsen afwerken
+    # TODO: de gebruiker altijd de optie geven om de applicatie af te sluiten
 
     def __init__(self):
 
@@ -40,6 +41,7 @@ class Program:
             # region User options
             if choice == 'u':
                 print(
+                    "****Welkom in het overzichtmenu voor gebruikersgegevens.**** \n"
                     "Kies 'i' om je gebruikersinfo te bekijken.\n"
                     "Kies 'all' om een lijst van alle users te zien\n"
                     "Kies 'a' om een user toe te voegen\n"
@@ -60,53 +62,62 @@ class Program:
                 # TODO: dubbelen controleren alvorens de nieuwe user aan te maken
                 elif choice == 'a':
                     if self.user_object.rol == "admin":
+                        print("Je hebt ervoor gekozen om een nieuwe gebruiker aan te maken.")
                         flag2 = True
                         while flag2:
-                            new_user_username = input ("Wat wordt de username van de nieuwe user?")
+                            new_user_username = input ("Wat wordt de gebruikersnaam van de nieuwe gebruiker?")
                             if new_user_username == "" or new_user_username.isdigit():
                                 print("Je input klopt niet helemaal, je hebt een lege "
                                       "waarde of getal ingevoerd. Probeer het nog een keer.")
                             else:
                                 flag2 = False
-                        new_user_role = input("Is het een admin(a) of employee(e)?")
+                        new_user_role = input("Is het een admin(typ a) of employee(typ e)?")
                         if new_user_role == 'a':
                             new_user_role = 'admin'
                         elif new_user_role == 'e':
                             new_user_role = 'employee'
 
-                            self.dal.add_user(new_user_username,new_user_role)
+                        self.dal.add_user(new_user_username,new_user_role)
 
-                            print("\nDe nieuwe user " + new_user_username + " is toegevoegd!")
-                            pass
+                        input("\nDe nieuwe user " + new_user_username + " is toegevoegd!\n "
+                                "Druk op enter om terug naar het menu te gaan")
+                        pass
                     else:
                         print("Je hebt niet de rechten om deze actie uit te voeren.")
                         pass
 
                 ## Het verwijderen van een user
                 elif choice == 'd':
+                    print("Je hebt ervoor gekozen om een gebruiker te verwijderen.")
                     if self.user_object.rol == "admin":
                         selected_to_delete = self.dal.select_a_user('action')
                         confirm_delete = input("Je hebt gekozen om " + selected_to_delete + " te verwijderen. Weet je dit zeker? (y/n)")
                         if confirm_delete == "y":
                             self.dal.delete_user(selected_to_delete)
+                            input("Je hebt met succes " + selected_to_delete + " verwijderd.\n"
+                                "Druk op enter om terug naar het menu te gaan.")
                         else:
                             pass
                         pass
                     else:
-                        print("Je hebt niet de rechten om deze actie uit te voeren.")
+                        print("Je hebt niet de rechten om deze actie uit te voeren.\n"
+                              "Druk op enter om terug naar het menu te gaan.")
                         pass
 
                 ## Het kiezen en aanpassen van een user
                 elif choice == 'c':
+                    print("Je hebt ervoor gekozen om de gegevens van een gebruiker aan te passen.")
                     if self.user_object.rol == "admin":
                         selected_to_change = self.dal.select_a_user('change')
-                        # TODO teksten afmaken
-                        new_user_username = input("Wat wordt de nieuwe username?")
+
+                        new_user_username = input("Wat wordt de nieuwe gebruikersnaam? "
+                                "\n(druk op enter om de huidige gebruikersnaam te behouden)")
                         if new_user_username == "" or new_user_username.isdigit():
                             print("De oude username " + selected_to_change.username + " wordt behouden")
                             new_user_username = selected_to_change.username
 
-                        new_user_role = input("Is het een admin(a) of employee(e)?")
+                        new_user_role = input("Is het een admin(a) of employee(e)?"
+                            "\n(druk op enter om de huidige rol te behouden)")
                         if new_user_role == 'a':
                             new_user_role = 'admin'
                         elif new_user_role == 'e':
@@ -115,11 +126,14 @@ class Program:
                             print("Je hebt een foutieve waarde ingevoerd. Rol blijft onveranderd")
                             new_user_role = selected_to_change.rol
 
-                        self.dal.modify_user(selected_to_change.userID, new_user_username, new_user_role)
+                        self.dal.modify_user(selected_to_change.userid, new_user_username, new_user_role)
+                        input("De gegevens van " + new_user_username + " zijn succesvol aangepast. \n"
+                                        "Druk op enter om terug naar het menu te gaan.")
 
                         pass
                     else:
-                        print("Je hebt niet de rechten om deze actie uit te voeren.")
+                        print("Je hebt niet de rechten om deze actie uit te voeren."
+                              "\n Druk op enter om terug naar het menu te gaan.")
                         pass
 
                 elif choice == 'm':

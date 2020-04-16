@@ -10,7 +10,7 @@ class User:
 
     def get_info(self):
         print("Je bent ingelogd als " + self.username + " en hebt als rol " + self.rol)
-        time.sleep(2)
+        input("Druk op enter om terug naar het menu te gaan.")
 
     def get_user_id(self):
         return self.userid

@@ -204,8 +204,6 @@ class Program:
 [2] Producten
 > """))
 
-                    #TODO: Toevoegen welke keuzes je hebt
-
                     if what_to_change == "1":
                         print("'1.' In behandeling\n"
                               "'2.' Betaald\n"

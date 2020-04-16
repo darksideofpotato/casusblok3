@@ -11,13 +11,20 @@ class Program:
 
         self.username = input("Wat is je gebruikersnaam?")
 
-        self.user_object = self.dal.login_user(self.username)
+        login = self.user_object = self.dal.login_user(self.username)
 
-        self.menu()
+        # Checkt of de login goed of fout is gegaan.
+        if login != False:
+            self.menu()
+        else:
+            Program()
 
     def menu(self):
         flag = True
         while flag:
+            # TODO: terug naar het desbetreffende menu geleid worden naar een actie,
+            #  en niet altijd het algemene menu.
+
             print(
                 "Je bevindt je in het menu. Wat wil je doen?\n\n"
                 "Kies 'u' om naar de opties voor gebruikers te gaan\n"
@@ -31,8 +38,6 @@ class Program:
             choice = input().lower()
 
             # region User options
-            # TODO: Security er dergelijke kloppend maken
-            # Verder klaar!
             if choice == 'u':
                 print(
                     "Kies 'i' om je gebruikersinfo te bekijken.\n"
@@ -52,14 +57,22 @@ class Program:
                     self.dal.select_a_user('view')
 
                 ## Het aamaken van een nieuwe gebruiker
+                # TODO: dubbelen controleren alvorens de nieuwe user aan te maken
                 elif choice == 'a':
                     if self.user_object.rol == "admin":
+                        flag2 = True
+                        while flag2:
                             new_user_username = input ("Wat wordt de username van de nieuwe user?")
-                            new_user_role = input("Is het een admin(a) of employee(e)?")
-                            if new_user_role == 'a':
-                                new_user_role = 'admin'
-                            elif new_user_role == 'e':
-                                new_user_role = 'employee'
+                            if new_user_username == "" or new_user_username.isdigit():
+                                print("Je input klopt niet helemaal, je hebt een lege "
+                                      "waarde of getal ingevoerd. Probeer het nog een keer.")
+                            else:
+                                flag2 = False
+                        new_user_role = input("Is het een admin(a) of employee(e)?")
+                        if new_user_role == 'a':
+                            new_user_role = 'admin'
+                        elif new_user_role == 'e':
+                            new_user_role = 'employee'
 
                             self.dal.add_user(new_user_username,new_user_role)
 
@@ -86,16 +99,23 @@ class Program:
                 ## Het kiezen en aanpassen van een user
                 elif choice == 'c':
                     if self.user_object.rol == "admin":
-                        selected_to_change = self.dal.select_a_user('action')
-
+                        selected_to_change = self.dal.select_a_user('change')
+                        # TODO teksten afmaken
                         new_user_username = input("Wat wordt de nieuwe username?")
+                        if new_user_username == "" or new_user_username.isdigit():
+                            print("De oude username " + selected_to_change.username + " wordt behouden")
+                            new_user_username = selected_to_change.username
+
                         new_user_role = input("Is het een admin(a) of employee(e)?")
                         if new_user_role == 'a':
                             new_user_role = 'admin'
                         elif new_user_role == 'e':
                             new_user_role = 'employee'
+                        else:
+                            print("Je hebt een foutieve waarde ingevoerd. Rol blijft onveranderd")
+                            new_user_role = selected_to_change.rol
 
-                        self.dal.modify_user(selected_to_change, new_user_username, new_user_role)
+                        self.dal.modify_user(selected_to_change.username, new_user_username, new_user_role)
 
                         pass
                     else:

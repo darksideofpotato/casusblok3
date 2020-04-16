@@ -84,7 +84,7 @@ class Dal:
     def select_a_user(self, goal):
         connection = self.database_connect()
 
-        sql = "SELECT gebruikersnaam, rol FROM gebruiker"
+        sql = "SELECT * FROM gebruiker"
         cursor = connection.cursor()
         cursor.execute(sql)
         result = cursor.fetchall()
@@ -99,7 +99,16 @@ class Dal:
             chosen_user = int(input("Welke user kies je? (nummer)"))
             chosen_user = chosen_user - 1
 
-            return (result[chosen_user][0])
+            return (result[chosen_user][1])
+        elif goal == "change":
+            chosen_user = int(input("Welke user kies je? (nummer)"))
+            chosen_user = chosen_user - 1
+
+            new_chosen_user = User(result[chosen_user][0], result[chosen_user][1], result[chosen_user][2])
+            return (new_chosen_user)
+
+        else:
+            input("Druk op enter om terug te gaan naar het menu")
 
         self.database_disconnect(connection)
 

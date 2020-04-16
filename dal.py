@@ -175,7 +175,7 @@ class Dal:
                 chosen_company = int(input("Welke leverancier kies je? (nummer)"))
                 chosen_company = chosen_company - 1
 
-                return (result[chosen_company][0])
+                return (result[chosen_company][1])
             except ValueError:
 
                 return ""

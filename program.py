@@ -146,6 +146,7 @@ class Program:
             # region Leverancier options
             elif choice == 'l':
                 print(
+                    "****Welkom in het overzichtmenu voor gebruikersgegevens.**** \n"
                     "Kies 'a' om een leverancier toe te voegen\n"
                     "Kies 'd' om een leverancier te verwijderen\n"
                     "Kies 'c' om een leverancier aan te passen\n"
@@ -155,7 +156,7 @@ class Program:
                 )
                 choice = input()
                 if choice == 'a':
-                    # TODO: mogelijk maken om het proces dat een leverancier toevoegen af te kunnen breken
+                    print("Je hebt ervoor gekozen om een nieuwe leverancier aan te maken.")
                     flag2 = True
                     while flag2:
                         new_company_name = input("Wat is de naam van de leverancier?")
@@ -187,40 +188,51 @@ class Program:
 
                     self.dal.add_company(new_company_name, new_company_adres, new_company_email, new_company_levertijd)
 
-                    print("\nDe nieuwe leverancier " + new_company_name + " is toegevoegd!")
+                    input("\nDe nieuwe leverancier " + new_company_name + " is toegevoegd!\n"
+                        "Druk op enter om terug naar het menu te gaan.")
                     pass
 
                 elif choice == 'd':
+                    print("Je hebt ervoor gekozen om een leverancier te verwijderen.")
                     selected_to_delete = self.dal.select_a_company('action')
                     confirm_delete = input(
                         "Je hebt gekozen om " + selected_to_delete + " te verwijderen. Weet je dit zeker? (y/n)")
                     if confirm_delete == "y":
                         self.dal.delete_company(selected_to_delete)
+                        input(selected_to_delete + " is verwijderd.\n"
+                            "Druk op enter om terug naar het menu te gaan.")
                     else:
                         pass
                     pass
 
                 elif choice == 'c':
+                    print("Je hebt ervoor gekozen om een leverancier aan te passen.")
                     selected_to_change = self.dal.select_a_company('change')
 
-                    new_company_name = input("Wat is de naam van de leverancier?")
+                    new_company_name = input("Wat is de nieuwe naam van de leverancier? "
+                                             "\n(druk op enter om de huidige naam te behouden)")
                     if new_company_name == "":
                         print("De leveranciernaam wordt niet aangepast.")
                         new_company_name = selected_to_change.leveranciernaam
-                    new_company_adres = input("Wat is het adres van de leverancier?")
+                    new_company_adres = input("Wat is het adres van de leverancier?"
+                                              "\n(druk op enter om het huidige adres te behouden)")
                     if new_company_adres == "" or new_company_adres.isdigit():
                         print("het adres wordt niet aangepast.")
                         new_company_adres = selected_to_change.leverancieradres
-                    new_company_email = input("Wat is het emailadres van de leverancier?")
+                    new_company_email = input("Wat is het emailadres van de leverancier?"
+                                              "\n(druk op enter om het huidige email adres te behouden)")
                     if new_company_email == "" or new_company_email.isdigit():
                         print("Het email adres wordt niet aangepast.")
                         new_company_email = selected_to_change.leverancieremail
-                    new_company_levertijd = input("Wat is de levertijd van de leverancier?")
+                    new_company_levertijd = input("Wat is de levertijd van de leverancier?"
+                                                  "\n(druk op enter om de huidige levertijd te behouden)")
                     if new_company_levertijd == "" or new_company_levertijd.isdigit():
                         print("De levertijd van het bedrijf wordt niet aangepast.")
                         new_company_levertijd = selected_to_change.levertijd
 
                     self.dal.modify_company(selected_to_change.leverancierID, new_company_name, new_company_adres, new_company_email, new_company_levertijd)
+                    input("De gegevens van " + new_company_name + " zijn succesvol aangepast.\n"
+                                                                  "Druk op enter om terug naar het menu te gaan.")
                     pass
 
                 elif choice == 'all':

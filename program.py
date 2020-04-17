@@ -442,12 +442,13 @@ class Program:
                                             int(modified_values[5]))
                     pass
                 elif choice == 'd':
-                    # TODO: netter maken
-                    selected_to_delete = self.dal.select_a_product('action')
+                    selected_to_delete = self.dal.select_a_product('delete')
                     confirm_delete = input(
-                        "Je hebt gekozen om " + str(selected_to_delete) + " te verwijderen. Weet je dit zeker? (y/n)")
+                        "Je hebt gekozen om " + str(selected_to_delete[1]) + " te verwijderen. Weet je dit zeker? (y/n)")
                     if confirm_delete == "y":
-                        self.dal.delete_product(selected_to_delete)
+                        self.dal.delete_product(selected_to_delete[0])
+                        input(selected_to_delete[1] + " succesvol verwijderd. \n"
+                                                      "Druk op enter om terug naar het menu te gaan.")
                     else:
                         pass
                     pass

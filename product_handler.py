@@ -65,6 +65,11 @@ class Producthandler:
             chosen_product = chosen_product - 1
             return (self.result[chosen_product])
 
+        elif goal == "delete":
+            chosen_product = int(input("Welk product wil je verwijderen? (nummer)"))
+            chosen_product = chosen_product - 1
+            return (self.result[chosen_product][0], self.result[chosen_product][1])
+
         else:
             input("Druk op 'Enter' om terug te gaan naar het menu")
 

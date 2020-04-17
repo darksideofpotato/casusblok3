@@ -5,11 +5,3 @@ class Stock:
         self.company = company
         self.minimum = minimum
         self.maximum = maximum
-
-    #### methods
-
-    def show_stock(self):
-        pass
-
-    def place_order(self):
-        pass

@@ -8,6 +8,7 @@ class Product:
         self.min = min
         self.max = max
 
+    # Een functie om te controleren of er nog genoeg op voorraad is, of dat er bijbesteld moet worden
     def check_quantity(self):
         if int(self.voorraad) < int(self.min):
             quantity_to_order = int(self.max) - int(self.voorraad)
@@ -16,6 +17,9 @@ class Product:
         else:
             return print("Er is nog genoeg op voorraad")
             pass
+
+    # Een functie waarmee het product kan worden aangepast. Heeft een aantal input checks, en behoud
+    # de eigen waarde indien deze niet aangepast wordt.
 
     def modify_product(self, leverancier):
         new_product_leverancier = leverancier

@@ -1,15 +1,26 @@
 from dal import Dal
-import time
 
 class Program:
+
+    ######################## We hebben de todo's er bewust ingelaten, om te laten zien dat
+    ######################## we er bewust van zijn dat nog niet alles 100% waterdicht werkt, hier hebben we helaas
+    ######################## niet genoeg tijd voor gehad.
+    ######################## We hebben ervoor gekozen om de class product zoveel mogelijk
+    ######################## correct te maken met de dal class (zoals besproken met Miel).
+
+
     # TODO: kijken of er meerdere classes gebruikt kunnen worden vanuit de dal class
     # TODO: automatisch orders plaatsen afwerken
     # TODO: de gebruiker altijd de optie geven om de applicatie af te sluiten
+    # TODO: terug naar het desbetreffende menu geleid worden naar een actie,
+    #  en niet altijd het algemene menu.
 
     def __init__(self):
 
+        # een attribuut van de klasse dal, die alle database acties regelt
         self.dal = Dal()
 
+        # Het onderdeel voor het inloggen
         self.username = input("Wat is je gebruikersnaam?")
 
         login = self.user_object = self.dal.login_user(self.username)
@@ -21,10 +32,9 @@ class Program:
             Program()
 
     def menu(self):
+        # Via de flag kan het menu oneindig worden herhaald
         flag = True
         while flag:
-            # TODO: terug naar het desbetreffende menu geleid worden naar een actie,
-            #  en niet altijd het algemene menu.
 
             print(
                 "Je bevindt je in het menu. Wat wil je doen?\n\n"
@@ -485,6 +495,7 @@ class Program:
                 exit()
 
             ############# Test voor het automatisch bestellen van een product
+            # TODO: moet nog beter uitgewerkt worden
             elif choice == 'test':
                 self.dal.check_all_products()
 

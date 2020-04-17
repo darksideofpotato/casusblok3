@@ -219,7 +219,6 @@ class Dal:
         self.database_disconnect(connection)
 
     # Functie om de gegevens van een leverancier aan te passen
-    # TODO: doen via leverancier class zodat niet alle gegevens opnieuw ingevuld hoeven te worden
     def modify_company(self, chosen_company, new_name, new_adres, new_email, new_levertijd):
         connection = self.database_connect()
 
@@ -251,9 +250,7 @@ class Dal:
 #region Order methods
 
     # Functie om alle orders te kunnen laten zien, en om een order uit te kiezen (om aan te passen of te annuleren)
-    # TODO: orderproducten weergeven (functie staat iets naar beneden)
     def select_an_order(self, goal):
-        # TODO: string formatting en dergelijke
         connection = self.database_connect()
 
         sql = "SELECT orderID, datum, orderstatus, gebruikersnaam FROM `order` " \
@@ -272,11 +269,6 @@ class Dal:
                 print(x, end= " ")
             print("\n")
 
-
-
-        # TODO: keuze kunnen maken tussen statussen van orders
-        # TODO: Bij delete alleen orders laten zien die in behandeling zijn
-
         if goal == "action":
             chosen_order = int(input("Welke order kies je? (nummer)"))
             chosen_order = chosen_order - 1
@@ -290,7 +282,6 @@ class Dal:
     # Functie die een order zelf aanmaakt. Deze functie is een voorbereiding op het aanmaken van
     # de orderproducten. Daarom wordt de orderID gereturned.
     def prepare_order(self):
-        # TODO: netter maken
         userid = self.user.get_user_id()
         today_date = datetime.datetime.today()
         status = "In behandeling"
@@ -312,7 +303,6 @@ class Dal:
     # Binnen deze functie wordt voor het aanmaken van een order het orderproduct ingevuld.
     # Dit op basis van het orderID van de vorige functie, en de productID's die uitgekozen zijn.
     def place_order(self, order_id, product_id, quantity):
-        # TODO: netter maken
         connection = self.database_connect()
 
         sql = "INSERT INTO `orderproduct` (orderID, productID, hoeveelheid) VALUES (%s, %s, %s)"
@@ -326,10 +316,8 @@ class Dal:
         self.database_disconnect(connection)
 
     # Functie om een order aan te passen
-    # TODO: doen via classes zodat niet alle gegevens opnieuw ingevuld hoeven te worden
     def modify_order(self, order_id, what_to_change, new_value):
         connection = self.database_connect()
-        # TODO: input check
         if what_to_change == "status":
             sql = "UPDATE `order` SET orderstatus = %s WHERE orderID = %s"
             values = (new_value, order_id)
@@ -346,7 +334,6 @@ class Dal:
 
     # Functie om een orderproduct te selecteren op basis van een orderID
     def select_current_order_products(self, goal, orderID):
-        # TODO: netter maken
         connection = self.database_connect()
 
         sql = "SELECT orderproduct.productID, productnaam, hoeveelheid FROM `orderproduct` " \
@@ -361,7 +348,6 @@ class Dal:
             counter = counter + 1
             print(str(counter) + ". " + str(product))
 
-        # TODO: een product aan kunnen passen
         if goal == "action":
             chosen_product = int(input("Welk product kies je? (nummer)"))
             chosen_product = chosen_product - 1
@@ -376,7 +362,7 @@ class Dal:
     # Functie om een order te verwijderen
     def delete_order(self, chosen_order):
         self.delete_order_product(chosen_order, "null")
-        # TODO: netter maken
+
         connection = self.database_connect()
 
         sql = "DELETE FROM `order` WHERE orderID = %s"
@@ -389,7 +375,7 @@ class Dal:
 
     # Wanneer een order wordt verwijderd, worden via deze functie ook automatisch de orderproducten verwijderd.
     def delete_order_product(self, order, product):
-        #TODO: netter maken
+
         connection = self.database_connect()
         if product != "null":
             sql = "DELETE FROM orderproduct WHERE orderID = %s and productID = %s"
@@ -405,12 +391,12 @@ class Dal:
 #endregion
 
 #region Product methods
+
 ############################################ @Miel Hier zijn de functies zover als het lukte aangepast op de classes, zoals besproken ###############################
 
     # De functie die producten kan weergeven en het mogelijk maakt om een product uit te kiezen. Bijvoorbeeld om
     # toe te voegen aan een order, te verwijderen of te wijzigen.
     def select_a_product(self, goal):
-        # TODO: netter maken
         # TODO: weergave inkoopprijs
         connection = self.database_connect()
 

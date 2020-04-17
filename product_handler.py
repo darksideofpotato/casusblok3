@@ -1,13 +1,25 @@
 from product import Product
 
+# Producthandler is een klas die op basis van een list van gegevens een aantal
+# acties uit kan voeren.
 class Producthandler:
     def __init__(self, result):
         self.result = result
 
+    # Een functie die meerdere onderdelen regelt waarin een of meerdere producten geselecteerd moeten worden.
+    # de algemene functie zorgt ervoor dat alle producten op een rij weergeven kunnen worden.
+
+    # Placeorder zorgt ervoor dat producten en hoeveelheden geselecteerd kunnen worden om een order
+    # te plaatsen.
+
+    # Productaanpassen werkt om de waarden terug te geven die nodig zijn om een product aan te passen
+
+    # Delete wordt, zoals de naam al impliceert, gebruikt om de waarden terug te geven die nodig zijn
+    # om de object in de dal (via program) vervolgens te verwijderen.
+
     def select_a_product(self, goal):
         header_lst = ("ProductID", "Product", "Leverancier", "Inkoopprijs", "Voorraad", "Minimum", "Maximum")
         print("De volgende producten zitten in het systeem:")
-        #counter = 0
 
         for header in header_lst:
             header = '{:15}'.format(header)
@@ -87,6 +99,8 @@ class Producthandler:
         else:
             input("Druk op 'Enter' om terug te gaan naar het menu")
 
+    # De functie product aanpassen handler staat als tussenstap, om de list van product dat vanuit de database komt
+    # te strippen en een object van product van aan te maken.
     def product_aanpassen_handler(self, company, chosen_product):
         for tuple in company:
             for id in tuple:

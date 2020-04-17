@@ -524,9 +524,3 @@ class Dal:
         self.database_disconnect(connection)
         return got_product
 #endregion
-
-
-
-
-
-

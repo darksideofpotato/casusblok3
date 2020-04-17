@@ -346,13 +346,19 @@ class Program:
                                 elif choice == "h":
                                     flag2 = True
                                     while flag2:
-                                        #TODO: input check toevoegen op maximum te bestellen
-                                        nieuwe_hoeveelheid = input("Naar welke hoeveelheid moet het aangepast worden?")
-                                        if nieuwe_hoeveelheid == "" or nieuwe_hoeveelheid.isalpha():
-                                            print("Je input is geen cijfer. Probeer het nog een keer.")
+                                        for order,product in chosen_product_and_order.items():
+                                            whole_product = self.dal.get_product_by_id(product)
+
+                                        max_to_order = int(whole_product.max) - int(whole_product.voorraad)
+
+                                        nieuwe_hoeveelheid = input("Naar welke hoeveelheid moet het aangepast worden? "
+                                                                   "(max " + str(max_to_order) + " )")
+                                        if nieuwe_hoeveelheid == "" or nieuwe_hoeveelheid.isalpha() \
+                                                or int(nieuwe_hoeveelheid) > max_to_order or int(nieuwe_hoeveelheid) == 0:
+                                            print("Je input is geen cijfer of te hoog. Probeer het nog een keer.")
                                         else:
                                             self.dal.modify_order(chosen_product_and_order, "hoeveelheid", nieuwe_hoeveelheid)
-                                            input("Het product is met succes aangepast. \\n"
+                                            input("Het product is met succes aangepast. \n"
                                                   "Druk op enter om terug naar het menu te gaan")
                                             flag2 = False
                                             flag3 = False
@@ -431,7 +437,7 @@ class Program:
                     selected_to_change = self.dal.select_a_product('productaanpassen')
                     print(selected_to_change.productID)
                     #TODO: tekst over bedrijf aanpassen
-                    leverancier = self.dal.select_a_company("addproduct")
+                    leverancier = self.dal.select_a_company("changeproduct")
                     modified_values = selected_to_change.modify_product(leverancier[0])
 
                     self.dal.modify_product(int(selected_to_change.productID), int(modified_values[0]), str(modified_values[1]),

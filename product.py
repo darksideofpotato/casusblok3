@@ -21,23 +21,28 @@ class Product:
         new_product_leverancier = leverancier
         if leverancier == "":
             new_product_leverancier = self.leverancierID
-        new_product_name = input("Wat is de nieuwe naam van het product?")
+        new_product_name = input("Wat is de nieuwe naam van het product? "
+                                 "(Druk op enter om de huidige waarde " + self.productnaam + " te behouden)")
         if new_product_name == "":
             new_product_name = self.productnaam
 
-        new_product_inkoopprijs = input("Wat is de nieuwe inkoopprijs?")
+        new_product_inkoopprijs = input("Wat is de nieuwe inkoopprijs?"
+                                    "(Druk op enter om de huidige waarde " + str(self.inkoopprijs) + " te behouden)")
         if new_product_inkoopprijs == "":
             new_product_inkoopprijs = self.inkoopprijs
 
-        new_product_voorraad = input("Wat is de nieuwe voorraad?")
+        new_product_voorraad = input("Wat is de nieuwe voorraad?"
+                                     "(Druk op enter om de huidige waarde " + str(self.voorraad) + " te behouden)")
         if new_product_voorraad == "":
             new_product_voorraad = self.voorraad
 
-        new_product_minvoorraad = input("Geef een limiet van de minimum voorraad")
+        new_product_minvoorraad = input("Geef een limiet van de minimum voorraad"
+                                        "(Druk op enter om de huidige waarde " + str(self.min) + " te behouden)")
         if new_product_minvoorraad == "":
             new_product_minvoorraad = self.min
 
-        new_product_maxvoorraad = input("Geef een limiet van de maximum voorraad")
+        new_product_maxvoorraad = input("Geef een limiet van de maximum voorraad"
+                                        "(Druk op enter om de huidige waarde " + str(self.max) + " te behouden)")
         if new_product_maxvoorraad == "":
             new_product_maxvoorraad = self.max
 

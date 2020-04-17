@@ -193,6 +193,14 @@ class Dal:
 
             return (result[chosen_company][0], result[chosen_company][1])
 
+        elif goal == "changeproduct":
+            chosen_company = input("Wat wordt de nieuwe leverancier? (nummer)(druk op enter om de huidige leverancier"
+                                       "te behouden")
+            if chosen_company == "":
+                return ("","")
+            else:
+                chosen_company = int(chosen_company) - 1
+                return (result[chosen_company][0], result[chosen_company][1])
         else:
             pass
 

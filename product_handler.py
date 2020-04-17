@@ -60,10 +60,21 @@ class Producthandler:
                         return list_of_items
                 except IndexError:
                     print("Je hebt een ID gekozen die niet in de database staat. Probeer het nog een keer.")
+
         elif goal == "productaanpassen":
-            chosen_product = int(input("Welk product kies je? (ProductID)"))
-            chosen_product = chosen_product - 1
-            return (self.result[chosen_product])
+            flag = True
+            while flag:
+                try:
+                    chosen_product = input("Welk product kies je? (ProductID)")
+                    while chosen_product == "" or chosen_product.isalpha():
+                        chosen_product = input("Je input klopt niet helemaal, probeer het nog een keer.")
+                    chosen_product = chosen_product - 1
+                    flag = False
+                    return (self.result[chosen_product])
+                except IndexError:
+                    print("Je hebt een ID gekozen die niet in de database staat. Probeer het nog een keer.")
+                except TypeError:
+                    print("Je hebt een ID gekozen die niet in de database staat. Probeer het nog een keer.")
 
         elif goal == "delete":
             chosen_product = int(input("Welk product wil je verwijderen? (nummer)"))

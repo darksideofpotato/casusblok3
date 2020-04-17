@@ -68,13 +68,16 @@ class Producthandler:
                     chosen_product = input("Welk product kies je? (ProductID)")
                     while chosen_product == "" or chosen_product.isalpha():
                         chosen_product = input("Je input klopt niet helemaal, probeer het nog een keer.")
-                    chosen_product = chosen_product - 1
+                    chosen_product = int(chosen_product) - 1
                     flag = False
+
                     return (self.result[chosen_product])
                 except IndexError:
                     print("Je hebt een ID gekozen die niet in de database staat. Probeer het nog een keer.")
+                    flag = True
                 except TypeError:
                     print("Je hebt een ID gekozen die niet in de database staat. Probeer het nog een keer.")
+                    flag = True
 
         elif goal == "delete":
             chosen_product = int(input("Welk product wil je verwijderen? (nummer)"))

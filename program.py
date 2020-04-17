@@ -431,16 +431,16 @@ class Program:
                     selected_to_change = self.dal.select_a_product('productaanpassen')
                     print(selected_to_change.productID)
                     #TODO: tekst over bedrijf aanpassen
-                    leverancier = self.dal.select_a_company("action")
-                    modified_values = selected_to_change.modify_product(leverancier)
-
-                    for x in modified_values:
-                        print(x)
+                    leverancier = self.dal.select_a_company("addproduct")
+                    modified_values = selected_to_change.modify_product(leverancier[0])
 
                     self.dal.modify_product(int(selected_to_change.productID), int(modified_values[0]), str(modified_values[1]),
                                             float(modified_values[2]), int(modified_values[3]), int(modified_values[4]),
                                             int(modified_values[5]))
                     # TODO: als je de voorraad, onder de min aanpast, moet hij bij gaan bestellen
+
+                    input(modified_values[1] + " is succesvol aangepast.\n"
+                                               "Druk op enter om verder te gaan.")
 
                     pass
                 elif choice == 'd':

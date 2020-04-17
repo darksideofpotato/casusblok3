@@ -234,16 +234,18 @@ class Program:
                     #TODO: optie om extra producten toe te voegen zolang order nog in behandeling is
                     elif what_to_change == "2":
                         chosen_product_and_order = self.dal.select_current_order_products("action", selected_to_change)
-                        choice = input("""Wat wil je met dit product doen?
+                        choice = ""
+                        while choice != "v" and choice != "h":
+                            choice = input("""Wat wil je met dit product doen?
 [v] Verwijderen
 [h] Hoeveelheid
 > """).lower()
+
                         if choice == "v":           # Verwijderen
                             for order, product in chosen_product_and_order.items():
                                 self.dal.delete_order_product(order, product)
                             pass
                         elif choice == "h":         # Hoeveelheid
-                            #TODO: input check toevoegen
                             #TODO: netter maken
                             nieuwe_hoeveelheid = input("Naar welke hoeveelheid moet het aangepast worden?")
                             self.dal.modify_order(chosen_product_and_order, "hoeveelheid", nieuwe_hoeveelheid)

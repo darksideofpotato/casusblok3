@@ -434,7 +434,7 @@ class Program:
                 elif choice == 'c':
                     print("Je hebt ervoor gekozen om een product aan te passen.")
                     selected_to_change = self.dal.select_a_product('productaanpassen')
-                    print(selected_to_change)
+
                     leverancier = self.dal.select_a_company("changeproduct")
                     modified_values = selected_to_change.modify_product(leverancier[0])
 
@@ -451,7 +451,6 @@ class Program:
                         self.dal.modify_product(int(selected_to_change.productID), int(modified_values[0]), str(modified_values[1]),
                                             float(modified_values[2]), int(modified_values[5]), int(modified_values[4]),
                                             int(modified_values[5]))
-                    # TODO: als je de voorraad, onder de min aanpast, moet hij bij gaan bestellen
 
                     input(modified_values[1] + " is succesvol aangepast.\n"
                                                "Druk op enter om verder te gaan.")

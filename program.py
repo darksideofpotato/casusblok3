@@ -361,12 +361,13 @@ class Program:
                         except ValueError:
                             print("Je input klopt niet helemaal. Probeer het nog een keer.")
                             flag3 = True
-
                 elif choice == 'd':
                     # TODO: Maken dat alleen bestellingen in behandeling verwijderd kunnen worden
                     chosen_order_to_delete = self.dal.select_an_order("action")
 
                     self.dal.delete_order(chosen_order_to_delete)
+                    input("De order is succesvol verwijderd.\n"
+                          "Druk op enter om door te gaan.")
                     pass
                 elif choice == 'm':
                     self.menu()

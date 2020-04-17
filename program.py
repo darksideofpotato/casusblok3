@@ -284,14 +284,15 @@ class Program:
                     pass
                 elif choice == 'c':
                     ## Het aanpassen van de status
+                    print("Je hebt gekozen om een order aan te passen.")
                     selected_to_change = self.dal.select_an_order('action')
 
                     what_to_change = ""
                     while what_to_change != "1" and what_to_change != "2":
                         what_to_change = input(str("""Wat wil je aanpassen aan deze order?
-[1] Status
-[2] Producten
-> """))
+                                                        [1] Status
+                                                        [2] Producten
+                                                        > """))
 
                     if what_to_change == "1":
                         print("'1.' In behandeling\n"
@@ -300,7 +301,7 @@ class Program:
                               "'4.' Geleverd")
                         flag2 = True
                         while flag2:
-                            new_order_status = input("Wat is de nieuwe status?")
+                            new_order_status = input("Wat is de nieuwe status? (nummer)")
 
                             if int(new_order_status) == 1:
                                 new_order_status = "In behandeling"
@@ -318,18 +319,24 @@ class Program:
                                 print("Je invoer klopt niet, probeer het nog een keer")
 
                         self.dal.modify_order(selected_to_change, "status", new_order_status)
+                        input("De nieuwe status is met succes aangepast. "
+                              "Druk op enter om terug naar het menu te gaan.")
 
                     ## het aanpassen van de producten van een order
                     #TODO: optie om extra producten toe te voegen zolang order nog in behandeling is
                     elif what_to_change == "2":
+                        print("Je hebt ervoor gekozen om de producten binnen de bestelling aan te passen.\n"
+                              "De volgende producten zitten binnen de order.")
                         chosen_product_and_order = self.dal.select_current_order_products("action", selected_to_change)
-                        #TODO: print bijzetten
-                        choice = input("Wat wil je met dit product doen?")
-                        if choice == "verwijderen":
+
+                        choice = input("Wat wil je met dit product doen?\n"
+                                       "Kies 'v' om te verwijdere\n"
+                                       "Kies 'h' om de hoeveelheid aan te passen")
+                        if choice == "v":
                             for order, product in chosen_product_and_order.items():
                                 self.dal.delete_order_product(order, product)
                             pass
-                        elif choice == "hoeveelheid":
+                        elif choice == "h":
                             #TODO: input check toevoegen
                             #TODO: netter maken
                             nieuwe_hoeveelheid = input("Naar welke hoeveelheid moet het aangepast worden?")

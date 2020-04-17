@@ -188,7 +188,6 @@ class Dal:
 
             return leverancier
         else:
-            print("niet gelukt")
             pass
 
         self.database_disconnect(connection)

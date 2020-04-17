@@ -247,9 +247,9 @@ class Program:
             #endregion
 
             # region Order options
-            # TODO: Checken of alle menu dingen kloppen met de use cases
             elif choice == 'o':
                 print(
+                    "****Welkom in het overzichtmenu voor orders.**** \n"
                     "Kies 'all' om alle orders te bekijken\n"
                     "Kies 'a' om een order handmatig te plaatsen\n"
                     "Kies 'c' om een order aan te passen\n"
@@ -260,6 +260,7 @@ class Program:
                 choice = input()
                 if choice == 'all':
                     self.dal.select_an_order("view")
+                    input("Druk op enter om terug naar het menu te gaan.")
                     pass
                 if choice == 'a':
                     items_to_order = self.dal.select_a_product("placeorder")

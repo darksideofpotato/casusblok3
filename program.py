@@ -402,7 +402,12 @@ class Program:
                         new_product_name = input("Geen naam ingevoerd, probeer het opnieuw:")
                     print("Kies uit de lijst met leveranciers wie het product levert")
 
+
                     new_product_leverancier = self.dal.select_a_company("addproduct")
+                    new_product_leverancier = new_product_leverancier[0]
+
+                    print(new_product_leverancier)
+
 
                     new_product_inkoopprijs = input("Wat is de inkoopprijs? (bijv 1.50)")
                     while float(new_product_inkoopprijs) <= 0 or new_product_inkoopprijs == \

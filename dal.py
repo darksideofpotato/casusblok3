@@ -21,7 +21,7 @@ class Dal:
               host="localhost",
               database='casus_voorraden',
               user="root",
-              passwd="root", auth_plugin='mysql_native_password'
+              passwd="GeleBanaan043", auth_plugin='mysql_native_password'
             )
 
             return connection

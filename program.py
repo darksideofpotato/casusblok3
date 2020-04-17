@@ -392,26 +392,39 @@ class Program:
                     self.dal.select_a_product("view")
                     pass
                 elif choice == 'a':
-                    #TODO: input checks
                     new_product_name = input("Wat is de naam van het nieuwe product?")
                     while new_product_name == "":
                         new_product_name = input("Geen naam ingevoerd, probeer het opnieuw:")
-                    new_product_leverancier = self.dal.select_a_company("action")
-                    new_product_inkoopprijs = input("Wat is de inkoopprijs?")
-                    while int(new_product_inkoopprijs) <= 0:
-                        new_product_inkoopprijs = input("Inkoopprijs kan niet kleiner of gelijk zijn aan 0: ")
+                    print("Kies uit de lijst met leveranciers wie het product levert")
+
+                    new_product_leverancier = self.dal.select_a_company("addproduct")
+
+                    new_product_inkoopprijs = input("Wat is de inkoopprijs? (bijv 1.50)")
+                    while float(new_product_inkoopprijs) <= 0 or new_product_inkoopprijs == \
+                            "" or new_product_inkoopprijs.isalpha():
+                        new_product_inkoopprijs = input("Je ingevoerde inkoopprijs "
+                                                        "klopt niet helemaal. Probeer het nog een keer. ")
+
                     new_product_voorraad = 0
+
                     new_product_minvoorraad = input("Geef een limiet van de minimum voorraad")
-                    while int(new_product_minvoorraad) < 0:
-                        new_product_minvoorraad = input("Minimum voorraad kan niet kleiner zijn dan 0: ")
+                    while int(new_product_minvoorraad) < 0 or new_product_minvoorraad == \
+                            "" or new_product_minvoorraad.isalpha():
+                        new_product_minvoorraad = input("Je ingevoerde minimum klopt niet "
+                                                        "helemaal. Probeer het nog een keer. ")
+
                     new_product_maxvoorraad = input("Geef een limiet van de maximum voorraad")
-                    while int(new_product_maxvoorraad) < int(new_product_minvoorraad):
-                        new_product_maxvoorraad = input(f"Maximum voorraad kan niet kleiner zijn dan minimum voorraad ({new_product_minvoorraad}):")
+                    while int(new_product_maxvoorraad) < int(new_product_minvoorraad) or new_product_maxvoorraad == ""\
+                            or new_product_maxvoorraad.isalpha():
+                        new_product_maxvoorraad = input(f"Maximum voorraad kan niet kleiner zijn dan "
+                                                        f"minimum voorraad ({new_product_minvoorraad}):,"
+                                                        f"of je hebt een foute value ingevuld.")
 
                     self.dal.add_product(new_product_leverancier, new_product_name, new_product_inkoopprijs,
                                          new_product_voorraad, new_product_minvoorraad, new_product_maxvoorraad)
 
-                    print("\nHet nieuwe product " + new_product_name + " is toegevoegd!")
+                    input("\nHet nieuwe product " + new_product_name + " is toegevoegd!"
+                                                                       "Druk op enter om door te gaan.")
                     pass
                 elif choice == 'c':
                     # TODO: beter maken

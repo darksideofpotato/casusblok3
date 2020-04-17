@@ -187,6 +187,12 @@ class Dal:
                                   result[chosen_company][3], result[chosen_company][4])
 
             return leverancier
+        elif goal == "addproduct":
+            chosen_company = int(input("Welke leverancier kies je? (nummer)"))
+            chosen_company = chosen_company - 1
+
+            return (result[chosen_company][0])
+
         else:
             pass
 

@@ -31,8 +31,12 @@ class Product:
         if new_product_inkoopprijs == "":
             new_product_inkoopprijs = self.inkoopprijs
 
-        new_product_voorraad = input("Wat is de nieuwe voorraad?"
+        max_to_order = int(self.max)
+        new_product_voorraad = input("Wat is de nieuwe voorraad? (max " + str(max_to_order) + ")" 
                                      "(Druk op enter om de huidige waarde " + str(self.voorraad) + " te behouden)")
+        while int(new_product_voorraad) > int(max_to_order):
+            new_product_voorraad = input("Je probeert meer te orderen dan de limiet. Probeer het nog een keer.")
+
         if new_product_voorraad == "":
             new_product_voorraad = self.voorraad
 

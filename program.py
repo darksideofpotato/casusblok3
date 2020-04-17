@@ -383,7 +383,6 @@ class Program:
             #endregion
 
             #region Product options
-            # TODO: Checken of alle menu dingen kloppen met de use cases
             elif choice == 'p':
                 print(
                     "Kies 'all' om alle producten te bekijken\n"
@@ -435,8 +434,7 @@ class Program:
                 elif choice == 'c':
                     print("Je hebt ervoor gekozen om een product aan te passen.")
                     selected_to_change = self.dal.select_a_product('productaanpassen')
-                    print(selected_to_change.productID)
-                    #TODO: tekst over bedrijf aanpassen
+
                     leverancier = self.dal.select_a_company("changeproduct")
                     modified_values = selected_to_change.modify_product(leverancier[0])
 

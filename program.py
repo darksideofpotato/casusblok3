@@ -263,11 +263,12 @@ class Program:
                     input("Druk op enter om terug naar het menu te gaan.")
                     pass
                 if choice == 'a':
+                    print("Je hebt ervoor gekozen om een order te plaatsen.\n"
+                          "Kies eerst uit welke producten je wil bestellen.")
                     items_to_order = self.dal.select_a_product("placeorder")
 
-                    print(items_to_order)
-
                     new_order_id = self.dal.prepare_order()
+
 
                     for product, quantity in items_to_order.items():
                         self.dal.place_order(new_order_id, product, quantity)
@@ -276,6 +277,9 @@ class Program:
                                                 whole_product.productnaam, whole_product.inkoopprijs,
                                                 int(whole_product.voorraad) + int(quantity),
                                                 whole_product.min,whole_product.max)
+
+
+                    input("De bestelling is succesvol geplaatst! Druk op enter om door te gaan.")
 
                     pass
                 elif choice == 'c':

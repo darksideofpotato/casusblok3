@@ -34,11 +34,12 @@ class Product:
         max_to_order = int(self.max)
         new_product_voorraad = input("Wat is de nieuwe voorraad? (max " + str(max_to_order) + ")" 
                                      "(Druk op enter om de huidige waarde " + str(self.voorraad) + " te behouden)")
-        while int(new_product_voorraad) > int(max_to_order):
-            new_product_voorraad = input("Je probeert meer te orderen dan de limiet. Probeer het nog een keer.")
 
         if new_product_voorraad == "":
             new_product_voorraad = self.voorraad
+
+        while int(new_product_voorraad) > int(max_to_order):
+            new_product_voorraad = input("Je probeert meer te orderen dan de limiet. Probeer het nog een keer.")
 
         new_product_minvoorraad = input("Geef een limiet van de minimum voorraad"
                                         "(Druk op enter om de huidige waarde " + str(self.min) + " te behouden)")
